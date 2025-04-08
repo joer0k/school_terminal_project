@@ -1,7 +1,7 @@
 import sqlalchemy
 from sqlalchemy import orm
 
-from data.db_session import SqlAlchemyBase
+from data.db_schedule import SqlAlchemyBase
 
 
 class Teachers_to_Subjects(SqlAlchemyBase):
