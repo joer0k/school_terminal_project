@@ -23,7 +23,6 @@ def global_init(db_file):
     __factory_ = orm.sessionmaker(bind=engine_)
 
     from . import __canteen_models
-
     SqlAlchemyBase.metadata.create_all(engine_)
 
 

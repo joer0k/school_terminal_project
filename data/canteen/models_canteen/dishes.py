@@ -1,8 +1,8 @@
 import sqlalchemy
 from sqlalchemy import orm
-from data.models_canteen.menu import menu_table
+from data.canteen.models_canteen.menu import menu_table
 
-from data.db_canteen import SqlAlchemyBase
+from data.canteen.db_canteen import SqlAlchemyBase
 
 
 class Dishes(SqlAlchemyBase):

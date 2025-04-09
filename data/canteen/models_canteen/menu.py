@@ -1,7 +1,6 @@
-import sqlalchemy
-from sqlalchemy import orm, Table, Column, Integer, ForeignKey
+from sqlalchemy import Table, Column, Integer, ForeignKey
 
-from data.db_canteen import SqlAlchemyBase
+from data.canteen.db_canteen import SqlAlchemyBase
 
 menu_table = Table(
     'menu_table', SqlAlchemyBase.metadata,

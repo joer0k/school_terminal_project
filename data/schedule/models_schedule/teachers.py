@@ -1,7 +1,7 @@
 import sqlalchemy
 from sqlalchemy import orm
 
-from data.db_schedule import SqlAlchemyBase
+from data.schedule.db_schedule import SqlAlchemyBase
 
 
 class Teachers(SqlAlchemyBase):

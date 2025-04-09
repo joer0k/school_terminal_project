@@ -1,6 +1,0 @@
-import data.models_schedule.classes
-import data.models_schedule.classrooms
-import data.models_schedule.subjects
-import data.models_schedule.teachers
-import data.models_schedule.teacher_to_subject
-import data.models_schedule.schedule

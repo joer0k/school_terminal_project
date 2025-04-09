@@ -1,7 +1,7 @@
 import sqlalchemy
 from sqlalchemy import orm
 
-from data.db_canteen import SqlAlchemyBase
+from data.canteen.db_canteen import SqlAlchemyBase
 
 
 class Categories(SqlAlchemyBase):
