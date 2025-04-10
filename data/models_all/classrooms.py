@@ -1,6 +1,6 @@
 import sqlalchemy
 
-from data.schedule.db_schedule import SqlAlchemyBase
+from data.db_session import SqlAlchemyBase
 
 
 class Classrooms(SqlAlchemyBase):

@@ -2,14 +2,14 @@
 {% block content %}
     <form class='schedule_form' method="post">
         <label for="classSelect">Выберите класс</label>
-        <select class="form-select" aria-label="Default select example" id="classSelect" name="class">
+        <select class="form-select" aria-label="Default select example" id="classSelect" name="grade_level">
             {% for index in range(11) %}
                 <option>{{ loop.index }}</option>
             {% endfor %}
         </select>
         <br>
         <label for="letterSelect">Выберите параллель</label>
-        <select class="form-select" aria-label="Default select example" id="letterSelect" name="letter">
+        <select class="form-select" aria-label="Default select example" id="letterSelect" name="class_word">
             <option>А</option>
             <option>Б</option>
             <option>В</option>

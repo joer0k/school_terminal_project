@@ -1,7 +1,7 @@
 import sqlalchemy
 from sqlalchemy import orm
 
-from data.schedule.db_schedule import SqlAlchemyBase
+from data.db_session import SqlAlchemyBase
 
 
 class Subjects(SqlAlchemyBase):
@@ -12,5 +12,5 @@ class Subjects(SqlAlchemyBase):
     class_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey('classes.id'), nullable=False)
 
     class_number = orm.relationship('Classes')
-    class_room = orm.relationship('Classrooms')
-    t_t_s = orm.relationship('Teachers_to_Subjects', back_populates='subject')
+    # class_room = orm.relationship('Classrooms')
+    # t_t_s = orm.relationship('Teachers_to_Subjects', back_populates='subject')

@@ -1,6 +1,6 @@
 from sqlalchemy import Table, Column, Integer, ForeignKey
 
-from data.canteen.db_canteen import SqlAlchemyBase
+from data.db_session import SqlAlchemyBase
 
 menu_table = Table(
     'menu_table', SqlAlchemyBase.metadata,

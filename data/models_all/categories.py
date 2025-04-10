@@ -1,7 +1,7 @@
 import sqlalchemy
 from sqlalchemy import orm
 
-from data.canteen.db_canteen import SqlAlchemyBase
+from data.db_session import SqlAlchemyBase
 
 
 class Categories(SqlAlchemyBase):
@@ -10,4 +10,3 @@ class Categories(SqlAlchemyBase):
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     dish_category = sqlalchemy.Column(sqlalchemy.String, nullable=False)
 
-    dishes = orm.relationship("Dishes", back_populates="category")

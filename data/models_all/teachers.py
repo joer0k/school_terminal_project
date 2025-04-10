@@ -1,7 +1,7 @@
 import sqlalchemy
 from sqlalchemy import orm
 
-from data.schedule.db_schedule import SqlAlchemyBase
+from data.db_session import SqlAlchemyBase
 
 
 class Teachers(SqlAlchemyBase):
@@ -10,4 +10,4 @@ class Teachers(SqlAlchemyBase):
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     teacher_name = sqlalchemy.Column(sqlalchemy.String, nullable=False)
 
-    t_t_s = orm.relationship('Teachers_to_Subjects', back_populates='teacher')
+    # t_t_s = orm.relationship('Teachers_to_Subjects', back_populates='teacher')

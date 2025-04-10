@@ -1,6 +1,6 @@
 import sqlalchemy
 
-from data.schedule.db_schedule import SqlAlchemyBase
+from data.db_session import SqlAlchemyBase
 
 
 class Schedule(SqlAlchemyBase):
@@ -9,5 +9,5 @@ class Schedule(SqlAlchemyBase):
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     subject_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey('subjects.id'), nullable=False)
     class_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey('classes.id'), nullable=False)
-    day_of_week = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    day_of_week = sqlalchemy.Column(sqlalchemy.String, sqlalchemy.ForeignKey('weekday.id'), nullable=False)
 

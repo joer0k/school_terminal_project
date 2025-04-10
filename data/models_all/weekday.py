@@ -1,8 +1,8 @@
 import sqlalchemy
 from sqlalchemy import orm
-from data.canteen.models_canteen.menu import menu_table
+from data.models_all.menu import menu_table
 
-from data.canteen.db_canteen import SqlAlchemyBase
+from data.db_session import SqlAlchemyBase
 
 
 class Weekday(SqlAlchemyBase):
@@ -11,8 +11,8 @@ class Weekday(SqlAlchemyBase):
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     weekday = sqlalchemy.Column(sqlalchemy.String, nullable=False)
 
-    weekdays = orm.relationship(
-        "Weekday",
-        secondary=menu_table,
-        back_populates="dishes"
-    )
+    # weekdays = orm.relationship(
+    #     "Weekday",
+    #     secondary=menu_table,
+    #     back_populates="dishes"
+    # )

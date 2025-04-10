@@ -1,8 +1,8 @@
 import sqlalchemy
 from sqlalchemy import orm
-from data.canteen.models_canteen.menu import menu_table
+from data.models_all.menu import menu_table
 
-from data.canteen.db_canteen import SqlAlchemyBase
+from data.db_session import SqlAlchemyBase
 
 
 class Dishes(SqlAlchemyBase):
@@ -13,9 +13,9 @@ class Dishes(SqlAlchemyBase):
     dish_name = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     image = sqlalchemy.Column(sqlalchemy.Text, nullable=True)
 
-
-    dishes = orm.relationship(
-        "Dishes",
-        secondary=menu_table,
-        back_populates="weekdays"
-    )
+    #
+    # category = orm.relationship(
+    #     "Dishes",
+    #     secondary=menu_table,
+    #     back_populates="weekdays"
+    # )
