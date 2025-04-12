@@ -10,5 +10,5 @@ class Teachers_to_Subjects(SqlAlchemyBase):
     teacher_id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, nullable=False)
     subject_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey('subjects.id'), nullable=False)
 
-    # teacher = orm.relationship('Teachers', backref='t_t_s')
+    # teacher = orm.relationship('Teachers')
     # subject = orm.relationship('Subjects')

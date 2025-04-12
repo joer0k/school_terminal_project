@@ -12,4 +12,3 @@ class Classes(SqlAlchemyBase, SerializerMixin):
     class_word = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     grade_level = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
 
-    subjects = orm.relationship('Subjects', back_populates='class_number')

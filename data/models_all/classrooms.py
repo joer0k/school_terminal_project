@@ -1,4 +1,5 @@
 import sqlalchemy
+from sqlalchemy.util.preloaded import orm
 
 from data.db_session import SqlAlchemyBase
 
@@ -10,3 +11,6 @@ class Classrooms(SqlAlchemyBase):
     room_number = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     subject_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey('subjects.id'))
     teacher_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey('teachers.id'))
+
+    subject = orm.relationship('Subjects')
+    teacher = orm.relationship('Teachers')
