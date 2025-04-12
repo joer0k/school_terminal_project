@@ -3,12 +3,14 @@ from flask import render_template, request, jsonify
 from data import db_session
 from data.models_all.classes import Classes
 from data.models_all.schedule import Schedule
+from forms.schedule_form import ScheduleForm
 
 blueprint = flask.Blueprint('schedule_blueprint', __name__, template_folder='templates')
 
 
 @blueprint.route('/schedule', methods=['GET', 'POST'])
 def schedule_get():
+    form = ScheduleForm(is_editing=False)
     if request.method == 'POST':
         session = db_session.create_session()
         id_class = session.query(Classes).filter(Classes.class_word == request.form['class_word'],
@@ -25,4 +27,13 @@ def schedule_get():
             # print({'schedule': ([item.to_dict(only=(
             #     'id', 'subject', 'weekday'
             # )) for item in schedule])})
-    return render_template('schedule.html')
+    return render_template('schedule.html', form=form)
+
+
+@blueprint.route('/add_schedule', methods=['GET', 'PUT'])
+def schedule_put():
+    form = ScheduleForm(is_editing=True)
+    if form.validate_on_submit():
+        pass
+
+    return render_template('schedule.html', form=form)
