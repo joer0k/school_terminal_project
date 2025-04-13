@@ -13,10 +13,8 @@ app.register_blueprint(blueprints.schedule_bp.blueprint)
 @app.route('/')
 @app.route('/index')
 def index():
-    '''Прогружает главную страницу'''
+    """Прогружает главную страницу"""
     return render_template('base.html')
-
-
 
 
 if __name__ == '__main__':

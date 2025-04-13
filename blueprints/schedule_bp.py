@@ -10,6 +10,7 @@ blueprint = flask.Blueprint('schedule_blueprint', __name__, template_folder='tem
 
 @blueprint.route('/schedule', methods=['GET', 'POST'])
 def schedule_get():
+    """Получает расписания для одного класса"""
     form = ScheduleForm(is_editing=False)
     if request.method == 'POST':
         session = db_session.create_session()
@@ -23,7 +24,9 @@ def schedule_get():
                     data[elem.weekday.weekday] += [elem.subject.subject_name]
                 else:
                     data[elem.weekday.weekday] = [elem.subject.subject_name]
+            print(data)
             # в data словарь с предметами для выбранного класса
+
             # print({'schedule': ([item.to_dict(only=(
             #     'id', 'subject', 'weekday'
             # )) for item in schedule])})
@@ -32,6 +35,7 @@ def schedule_get():
 
 @blueprint.route('/add_schedule', methods=['GET', 'PUT'])
 def schedule_put():
+    """Добавляет расписание"""
     form = ScheduleForm(is_editing=True)
     if form.validate_on_submit():
         pass

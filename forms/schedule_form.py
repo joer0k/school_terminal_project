@@ -9,18 +9,18 @@ from wtforms.fields.simple import StringField
 from wtforms.validators import DataRequired, Optional
 
 
-# вспомогательная форма для предмета
 class LessonForm(FlaskForm):
+    """Вспомогательная форма для одного предмета"""
     subject = StringField('Предмет')
 
 
-# Вспомогательная форма для одного дня
 class DayScheduleForm(FlaskForm):
+    """Вспомогательная форма для одного дня"""
     lessons = FieldList(FormField(LessonForm), min_entries=7, max_entries=7)  # 7 уроков
 
 
-# форма всего расписания
 class ScheduleForm(FlaskForm):
+    """Форма всего расписания"""
     grade_level = SelectField('Класс', choices=[(str(i), str(i)) for i in range(1, 12)], validators=[DataRequired()])
     class_word = SelectField('Буква класса', choices=[(i, i) for i in ('АБВГД')], validators=[DataRequired()])
 
