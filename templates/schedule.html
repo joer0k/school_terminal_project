@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>{{ title }}</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <div>
+            <p>
+                {{ form.grade_level.label }}
+                {{ form.grade_level }}
+            </p>
+            <p>
+                {{ form.class_word.label }}
+                {{ form.class_word }}
+            </p>
+        </div>
+        <p>{{ form.submit(type='submit', class='btn btn-primary') }}</p>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Урок</th>
+                <th>Понедельник</th>
+                <th>Вторник</th>
+                <th>Среда</th>
+                <th>Четверг</th>
+                <th>Пятница</th>
+                <th>Суббота</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for lesson_index in range(7) %}
+                <tr>
+                    <td>{{ lesson_index + 1 }}-й урок</td>
+                    {% for day in form.days %}
+                        <td>{{ day.form.lessons[lesson_index].subject }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div>{{ message }}</div>
+    </form>
+
+
+
+{% endblock %}
