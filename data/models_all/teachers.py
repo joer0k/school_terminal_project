@@ -1,10 +1,11 @@
 import sqlalchemy
 from sqlalchemy import orm
+from sqlalchemy_serializer import SerializerMixin
 
 from data.db_session import SqlAlchemyBase
 
 
-class Teachers(SqlAlchemyBase):
+class Teachers(SqlAlchemyBase, SerializerMixin):
     __tablename__ = 'teachers'
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)

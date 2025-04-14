@@ -3,7 +3,7 @@ from flask import request, make_response, jsonify
 from werkzeug.security import generate_password_hash
 
 from data import db_session
-from data.models.teachers import Teachers
+from data.models_all.teachers import Teachers
 
 teachers_blueprint = flask.Blueprint(
     'teachers_api',
