@@ -13,6 +13,7 @@
                 {{ form.class_word }}
             </p>
         </div>
+        <p>{{ form.is_edit(type='checkbox', class='form-check-input') }} {{ form.is_edit.label }}</p>
         <p>{{ form.submit(type='submit', class='btn btn-primary') }}</p>
 
         <table>
