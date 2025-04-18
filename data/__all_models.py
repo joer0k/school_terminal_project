@@ -8,3 +8,4 @@ from data.models_all import subjects
 from data.models_all import teacher_to_subject
 from data.models_all import teachers
 from data.models_all import weekday
+from data.models_all import users

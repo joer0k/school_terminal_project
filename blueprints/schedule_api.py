@@ -5,10 +5,15 @@ from data.models_all.classes import Classes
 from data.models_all.schedule import Schedule
 from forms.schedule_form import ScheduleForm
 
-blueprint = flask.Blueprint('schedule_blueprint', __name__, template_folder='templates')
+schedule_bp = flask.Blueprint('schedule_api', __name__, template_folder='templates')
+'''
+Доделаю апи когда будет готов примерный вид изменения\добавления расписания
+Потому что я хочу изменять и добавлять предметы, записывая в таблицу, а сейчас это сложно т.к. не 
+знаю как это будет выглядеть.
+'''
 
 
-@blueprint.route('/api/schedule')
+@schedule_bp.route('/schedule')
 def schedule_get(data):
     """Получает расписания для одного класса"""
     session = db_session.create_session()
@@ -20,7 +25,7 @@ def schedule_get(data):
             {'schedule': [item.to_dict(only=('weekday', 'subject', 'classroom_id')) for item in schedule]})
 
 
-@blueprint.route('/api/schedule', methods=['POST'])
+@schedule_bp.route('/schedule', methods=['POST'])
 def schedule_post():
     """Добавляет расписание"""
     form = ScheduleForm(is_editing=True)
