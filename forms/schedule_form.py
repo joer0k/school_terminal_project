@@ -1,9 +1,6 @@
-from random import choices
-from tkinter import Checkbutton
-
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, BooleanField, SubmitField, EmailField
-from wtforms.fields.choices import SelectField, RadioField
+from wtforms import BooleanField, SubmitField
+from wtforms.fields.choices import SelectField
 from wtforms.fields.form import FormField
 from wtforms.fields.list import FieldList
 from wtforms.fields.simple import StringField
