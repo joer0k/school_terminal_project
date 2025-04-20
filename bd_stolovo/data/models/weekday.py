@@ -1,7 +1,6 @@
 import sqlalchemy
 from sqlalchemy import orm
-from bd_stolovo.data.models.menu import menu_table
-
+from bd_stolovo.data.models.menu import MenuTable
 
 from ..db_session import SqlAlchemyBase
 
@@ -14,6 +13,6 @@ class Weekday(SqlAlchemyBase):
 
     weekdays = orm.relationship(
         "Weekday",
-        secondary=menu_table,
+        secondary=MenuTable,
         back_populates="dishes"
     )
