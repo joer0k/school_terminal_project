@@ -1,24 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
+    <img class='logo' src="/static/images/logo.png">
     <h1>{{ title }}</h1>
-    <form action="" method="post">
+    <form action="" method="post" class="schedule">
         {{ form.hidden_tag() }}
         <div>
             <p>
-                {{ form.grade_level.label }}
-                {{ form.grade_level }}
+                {{ form.grade_level.label }} {{ form.grade_level(style='margin-left:11%;width:50px') }}
             </p>
             <p>
                 {{ form.class_word.label }}
-                {{ form.class_word }}
+                {{ form.class_word(style='margin-left:4%;width:50px') }}
             </p>
+            <p>{{ form.is_edit(type="checkbox", class="form-check-input", style="background-color: #202020") }} {{ form.is_edit.label(style='margin-left:3%;') }}</p>
+            <p>{{ form.submit(type="submit", class="btn btn-primary", style='width: 235px; background-color: #202020') }}</p>
         </div>
-        <p>{{ form.is_edit(type='checkbox', class='form-check-input') }} {{ form.is_edit.label }}</p>
-        <p>{{ form.submit(type='submit', class='btn btn-primary') }}</p>
 
-        <table>
+        <table class="schedule">
             <thead>
-            <tr>
+            <tr style="text-align: center">
                 <th>Урок</th>
                 <th>Понедельник</th>
                 <th>Вторник</th>
@@ -31,9 +31,9 @@
             <tbody>
             {% for lesson_index in range(7) %}
                 <tr>
-                    <td>{{ lesson_index + 1 }}-й урок</td>
+                    <td style="width: 10%">{{ lesson_index + 1 }}-й урок</td>
                     {% for day in form.days %}
-                        <td>{{ day.form.lessons[lesson_index].subject }}</td>
+                        <td>{{ day.form.lessons[lesson_index].subject(style='width:200px') }}</td>
                     {% endfor %}
                 </tr>
             {% endfor %}

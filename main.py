@@ -79,6 +79,9 @@ def schedule():
     form = ScheduleForm(is_editing=False)
     if request.method == 'POST':
         json = schedule_get(f'{request.form["grade_level"]}_{request.form["class_word"]}').json
+        for elem in json['schedule']:
+            form.days.data[int(elem['day_of_week'])]['lessons'][elem['number_lesson']]['subject'] = elem['subject']['subject_name']
+        return render_template('schedule.html', form=form)
     return render_template('schedule.html', form=form)
 
 

@@ -22,7 +22,10 @@ def schedule_get(data):
     if id_class:
         schedule = session.query(Schedule).filter(Schedule.class_id == id_class.id).all()
         return flask.jsonify(
-            {'schedule': [item.to_dict(only=('weekday', 'subject', 'classroom_id')) for item in schedule]})
+            {'schedule': [
+                item.to_dict(only=('day_of_week', 'subject.subject_name', 'classroom_id', 'number_lesson')) for item
+                in
+                schedule]})
 
 
 @schedule_bp.route('/schedule', methods=['POST'])
