@@ -1,21 +1,23 @@
 from flask import Flask, render_template, request, redirect
-from flask_login import LoginManager, user_login_confirmed, login_user, login_required, logout_user
-from flask_restful import Api
-from sqlalchemy.util.typing import ArgsTypeProcotol
+from flask_login import LoginManager, login_user, login_required, logout_user
+
+import blueprints.canteen_api
 import blueprints.schedule_api
+import blueprints.teachers_api
+from blueprints.schedule_api import schedule_get
+from blueprints.user_api import create_user
 from data import db_session
-from data.models_all.schedule import Schedule
 from data.models_all.users import User
 from forms.login_form import LoginForm
 from forms.register_form import RegisterForm
 from forms.schedule_form import ScheduleForm
-from blueprints.schedule_api import schedule_get
-from blueprints.user_api import create_user
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
 app.register_blueprint(blueprints.schedule_api.schedule_bp, url_prefix='/api')
 app.register_blueprint(blueprints.user_api.users_bp, url_prefix='/api')
+app.register_blueprint(blueprints.canteen_api.canteen_bp, url_prefix='/api')
+app.register_blueprint(blueprints.teachers_api.teachers_bp, url_prefix='/api')
 login_manager = LoginManager()
 login_manager.init_app(app)
 

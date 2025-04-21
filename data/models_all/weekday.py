@@ -1,20 +1,16 @@
 import sqlalchemy
 from sqlalchemy import orm
-from sqlalchemy_serializer import SerializerMixin
-
-from data.models_all.menu import menu_table
 
 from data.db_session import SqlAlchemyBase
+from data.models_all.menu import MenuTable
 
 
-class Weekday(SqlAlchemyBase, SerializerMixin):
+class Weekday(SqlAlchemyBase):
     __tablename__ = 'weekday'
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     weekday = sqlalchemy.Column(sqlalchemy.String, nullable=False)
 
-    # weekdays = orm.relationship(
-    #     "Weekday",
-    #     secondary=menu_table,
-    #     back_populates="dishes"
-    # )
+    menu_items = orm.relationship(
+        "MenuTable", back_populates="weekday"
+    )
