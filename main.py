@@ -74,14 +74,28 @@ def register():
     return render_template('register.html', form=form, title='Регистрация', message='', edit=False)
 
 
+def clear_table(form):
+    for day in range(6):
+        for lesson in range(7):
+            form.days.entries[day].lessons.entries[lesson].subject.data = ''
+
+
 @app.route('/schedule', methods=['GET', 'POST'])
 def schedule():
     form = ScheduleForm(is_editing=False)
     if request.method == 'POST':
-        json = schedule_get(f'{request.form["grade_level"]}_{request.form["class_word"]}').json
-        for elem in json['schedule']:
-            form.days.data[int(elem['day_of_week'])]['lessons'][elem['number_lesson']]['subject'] = elem['subject']['subject_name']
-        return render_template('schedule.html', form=form)
+        json = schedule_get(f'{request.form["grade_level"]}_{request.form["class_word"]}')
+        if json:
+            for elem in json.json['schedule']:
+                day = int(elem['day_of_week'])
+                lesson_index = elem['number_lesson']
+                subject_name = elem['subject']['subject_name']
+
+                form.days.entries[day].lessons.entries[lesson_index].subject.data = subject_name
+            return render_template('schedule.html', form=form)
+        else:
+            clear_table(form)
+            return render_template('schedule.html', message='Для этого класса расписания не найдено', form=form)
     return render_template('schedule.html', form=form)
 
 

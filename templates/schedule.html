@@ -13,7 +13,12 @@
                 {{ form.class_word(style='margin-left:4%;width:50px') }}
             </p>
             <p>{{ form.is_edit(type="checkbox", class="form-check-input", style="background-color: #202020") }} {{ form.is_edit.label(style='margin-left:3%;') }}</p>
-            <p>{{ form.submit(type="submit", class="btn btn-primary", style='width: 235px; background-color: #202020') }}</p>
+            <div style="display: inline">
+                <a>{{ form.submit(type="submit", class="btn btn-primary", style='width: 235px; background-color: #202020') }}</a>
+                {% if form.is_edit.data == True %}
+                    <a class="btn btn-primary" href="/add_schedule" style="width: 235px; background-color: #202020">Сохранить</a>
+                {% endif %}
+            </div>
         </div>
 
         <table class="schedule">
@@ -31,9 +36,10 @@
             <tbody>
             {% for lesson_index in range(7) %}
                 <tr>
-                    <td style="width: 10%">{{ lesson_index + 1 }}-й урок</td>
+                    <td>{{ lesson_index + 1 }}-й урок</td>
                     {% for day in form.days %}
-                        <td>{{ day.form.lessons[lesson_index].subject(style='width:200px') }}</td>
+                        <td {% if form.is_edit.data == True %}style="pointer-events: none"
+                            {% else %}style="pointer-events: auto"{% endif %}>{{ day.form.lessons[lesson_index].subject(style='width:200px') }}</td>
                     {% endfor %}
                 </tr>
             {% endfor %}
