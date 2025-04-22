@@ -1,8 +1,8 @@
 import sqlalchemy
 from sqlalchemy import orm
-from data.models_all.menu import menu_table
 
 from data.db_session import SqlAlchemyBase
+from data.models_all.menu import MenuTable
 
 
 class Dishes(SqlAlchemyBase):
@@ -13,9 +13,8 @@ class Dishes(SqlAlchemyBase):
     dish_name = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     image = sqlalchemy.Column(sqlalchemy.Text, nullable=True)
 
-    #
-    # category = orm.relationship(
-    #     "Dishes",
-    #     secondary=menu_table,
-    #     back_populates="weekdays"
-    # )
+    categories = orm.relationship(
+        "Categories",
+        back_populates="dish"
+    )
+    dishes = orm.relationship('MenuTable', back_populates="dish")
