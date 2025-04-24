@@ -1,0 +1,77 @@
+body {
+    background-image: url(/static/images/background.png) !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-attachment: fixed !important;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+    background-size: cover !important;
+}
+
+img.logo {
+    position: absolute;
+    width: auto;
+    height: auto;
+    display: block;
+    top: 20px;
+    left: 50px
+}
+
+form {
+    font-size: 22px;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+}
+
+form.login_form {
+    position: relative;
+    margin-top: 25%;
+    margin-left: 30%;
+    margin-right: 30%;
+    width: 40%;
+}
+
+form.register_form {
+    position: relative;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+h1.register {
+    position: relative;
+    margin-left: 30%;
+    margin-right: 35%;
+    font-size: 40px;
+}
+
+h1.login {
+    position: relative;
+    margin-left: 35%;
+    margin-right: 35%;
+    font-size: 40px;
+}
+
+form.schedule {
+    position: relative;
+    width: 80%;
+}
+
+table.schedule {
+    width: 300px; /* Устанавливаем небольшую ширину таблицы */
+    border-collapse: collapse; /* Убираем отступы между ячейками */
+    margin: 20px auto; /* Центрируем таблицу на странице */
+}
+
+th {
+    text-align: center; /* Центрируем текст в заголовках */
+    padding: 8px; /* Добавляем внутренние отступы */
+    border: 1px solid #ccc; /* Границы для ячеек */
+}
+
+td {
+    text-align: center; /* Центрируем текст в ячейках */
+    padding: 1px; /* Добавляем внутренние отступы */
+    border: 1px solid #ccc; /* Границы для ячеек */
+}
