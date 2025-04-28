@@ -1,6 +1,5 @@
 import flask
 from flask import session, request, jsonify
-from sqlalchemy.testing.suite.test_reflection import users
 from werkzeug.exceptions import BadRequest, Conflict, NotFound
 
 from data import db_session
@@ -22,12 +21,11 @@ def get_users():
 @users_bp.route('/user/<int:id_user>', methods=['POST'])
 def get_user(id_user):
     session = db_session.create_session()
-    user = session.get(User, id_user)
+    user = session.query(User).get(id_user)
     if user:
-        return flask.jsonify(
-            {'users': (
-                [item.to_dict(only=('id', 'surname', 'name', 'second_name', 'age', 'speciality', 'email')) for item in
-                 users])})
+        return flask.jsonify({'users': ([user.to_dict(
+            only=('id', 'surname', 'name', 'age', 'position', 'speciality', 'address', 'email', 'city_from')
+        )])})
     return flask.abort(404)
 
 
@@ -91,11 +89,15 @@ def change_user(id_user):
                 raise Conflict('Пароли не совпадают')
             user.set_password(data['password'])
         session.commit()
-
-        return flask.jsonify(
-            {'users': (
-                [item.to_dict(only=('id', 'surname', 'name', 'second_name', 'age', 'speciality', 'email')) for item in
-                 users])}), 200
+        return jsonify({
+            'id': user.id,
+            'surname': user.surname,
+            'name': user.name,
+            'second_name': user.second_name,
+            'age': user.age,
+            'speciality': user.speciality,
+            'email': user.email,
+        }), 200
     except Exception as error:
         session.rollback()
         raise BadRequest(str(error))

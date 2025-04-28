@@ -6,21 +6,98 @@
         {{ form.hidden_tag() }}
         <div>
             <p>
-                {{ form.grade_level.label }} {{ form.grade_level(style='margin-left:11%;width:50px') }}
+                {{ form.grade_level.label }} {{ form.grade_level(style='margin-left:11%;width:50px', id='select_grade') }}
             </p>
             <p>
                 {{ form.class_word.label }}
-                {{ form.class_word(style='margin-left:4%;width:50px') }}
+                {{ form.class_word(style='margin-left:4%;width:50px', id='select_class') }}
             </p>
             <p>{{ form.is_edit(type="checkbox", class="form-check-input", style="background-color: #202020") }} {{ form.is_edit.label(style='margin-left:3%;') }}</p>
             <div style="display: inline">
                 <a>{{ form.submit(type="submit", class="btn btn-primary", style='width: 235px; background-color: #202020') }}</a>
                 {% if form.is_edit.data == True %}
-                    <a class="btn btn-primary" href="/add_schedule" style="width: 235px; background-color: #202020">Сохранить</a>
+                    <a class="btn btn-primary" style="width: 235px; background-color: #202020"
+                       id="save_button">Сохранить</a>
                 {% endif %}
             </div>
         </div>
+        {#        <script>#}
+        {#            const selectField_grade = document.getElementById('select_grade')#}
+        {##}
+        {#            const selectField_class = document.getElementById('select_class')#}
+        {##}
+        {##}
+        {#            selectField_class.addEventListener('change', function (event) {#}
+        {#                event.preventDefault()#}
+        {#                const selected_grade = selectField_grade.value#}
+        {#                const selected_class = selectField_class.value#}
+        {##}
+        {#                const formData1 = new FormData()#}
+        {#                formData1.append('selected_grade', selected_grade)#}
+        {#                formData1.append('selected_class', selected_class)#}
+        {##}
+        {#                fetch('/schedule', {#}
+        {#                    method: 'POST',#}
+        {#                    body: formData1#}
+        {#                })#}
+        {#            });#}
+        {#            selectField_grade.addEventListener('change', function (event) {#}
+        {#                event.stopPropagation()#}
+        {#                const selected_grade = selectField_grade.value#}
+        {#                const selected_class = selectField_class.value#}
+        {##}
+        {#                const formData2 = new FormData()#}
+        {#                formData2.append('selected_grade', selected_grade)#}
+        {#                formData2.append('selected_class', selected_class)#}
+        {##}
+        {#                fetch('/schedule', {#}
+        {#                    method: 'POST',#}
+        {#                    body: formData2#}
+        {#                })#}
+        {#            });#}
+        {#        </script>#}
+        <script>
 
+            const button_save = document.getElementById('save_button');
+            const class_word =
+                `${document.getElementById('select_grade').value}_${document.getElementById('select_class').value}`;
+
+            const table = document.querySelector('.schedule');
+            const scheduleData = [];
+            const rows = table.querySelectorAll('tbody tr');
+
+            rows.forEach(row => {
+                const lessonData = [];
+                const cells = row.querySelectorAll('td');
+
+                cells.forEach((cell, index) => {
+                    if (index === 0) return;
+                    const input = cell.querySelector('input');
+                    if (input) {
+                        const value = input.value.trim();
+                        if (value !== '') {
+                            lessonData.push(value);
+                        }
+                    } else {
+                        const text = cell.textContent.trim();
+                        if (text !== '') {
+                            lessonData.push(text);
+                        }
+                    }
+                });
+
+                if (lessonData.length > 0) {
+                    scheduleData.push(lessonData);
+                }
+            });
+
+            button_save.addEventListener('click', function () {
+                fetch(`/schedule`, {
+                    method: 'PUT',
+                    body: JSON.stringify(scheduleData)
+                })
+            })
+        </script>
         <table class="schedule">
             <thead>
             <tr style="text-align: center">
@@ -38,17 +115,15 @@
                 <tr>
                     <td>{{ lesson_index + 1 }}-й урок</td>
                     {% for day in form.days %}
-                        <td {% if form.is_edit.data == True %}style="pointer-events: none"
+                        <td {% if form.is_edit.data == False %}style="pointer-events: none"
                             {% else %}style="pointer-events: auto"{% endif %}>{{ day.form.lessons[lesson_index].subject(style='width:200px') }}</td>
                     {% endfor %}
                 </tr>
             {% endfor %}
             </tbody>
         </table>
-
         <div>{{ message }}</div>
     </form>
-
 
 
 {% endblock %}

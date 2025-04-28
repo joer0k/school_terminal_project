@@ -19,19 +19,12 @@ class DayScheduleForm(FlaskForm):
 
 class ScheduleForm(FlaskForm):
     """Форма всего расписания"""
-    grade_level = SelectField('Класс', choices=[(str(i), str(i)) for i in range(1, 12)], default='', validators=[DataRequired()])
-    class_word = SelectField('Буква класса', choices=[(i, i) for i in ('АБВГД')], default='', validators=[DataRequired()])
+    grade_level = SelectField('Класс', choices=[(str(i), str(i)) for i in range(1, 12)], default='',
+                              validators=[DataRequired()])
+    class_word = SelectField('Буква класса', choices=[(i, i) for i in ('АБВГД')], default='',
+                             validators=[DataRequired()])
     is_edit = BooleanField("Редактирование")
-    days = FieldList(FormField(DayScheduleForm), min_entries=6, max_entries=6, validators=[Optional()])  # 6 дней недели
+    days = FieldList(FormField(DayScheduleForm), min_entries=6, max_entries=6)  # 6 дней недели
 
-    submit = SubmitField('Сохранить')
+    submit = SubmitField('Показать')
 
-    def __init__(self, *args, is_editing=False, **kwargs):
-        super(ScheduleForm, self).__init__(*args, **kwargs)
-        self.is_editing = is_editing
-
-        if not self.is_editing:
-            self.days.validators = [DataRequired()]
-            self.submit.label.text = 'Показать'
-        else:
-            self.submit.label.text = 'Сохранить'

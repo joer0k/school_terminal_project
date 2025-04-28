@@ -6,19 +6,14 @@ from data.models_all.schedule import Schedule
 from forms.schedule_form import ScheduleForm
 
 schedule_bp = flask.Blueprint('schedule_api', __name__, template_folder='templates')
-'''
-Доделаю апи когда будет готов примерный вид изменения\добавления расписания
-Потому что я хочу изменять и добавлять предметы, записывая в таблицу, а сейчас это сложно т.к. не 
-знаю как это будет выглядеть.
-'''
 
 
-@schedule_bp.route('/schedule')
-def schedule_get(data):
+@schedule_bp.route('/schedule/<string:class_word>')
+def schedule_get(class_word):
     """Получает расписания для одного класса"""
     session = db_session.create_session()
-    id_class = session.query(Classes).filter(Classes.grade_level == data.split('_')[0],
-                                             Classes.class_word == data.split('_')[1]).first()
+    id_class = session.query(Classes).filter(Classes.grade_level == class_word.split('_')[0],
+                                             Classes.class_word == class_word.split('_')[1]).first()
     if id_class:
         schedule = session.query(Schedule).filter(Schedule.class_id == id_class.id).all()
         return flask.jsonify(
@@ -28,9 +23,10 @@ def schedule_get(data):
                 schedule]})
 
 
-@schedule_bp.route('/schedule', methods=['POST'])
-def schedule_post():
+@schedule_bp.route('/schedule/<string:class_word>', methods=['POST'])
+def schedule_post(class_word, data):
     """Добавляет расписание"""
+    print(data)
     form = ScheduleForm(is_editing=True)
     if form.validate_on_submit():
         pass

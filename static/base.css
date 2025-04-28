@@ -59,19 +59,25 @@ form.schedule {
 }
 
 table.schedule {
-    width: 300px; /* Устанавливаем небольшую ширину таблицы */
-    border-collapse: collapse; /* Убираем отступы между ячейками */
-    margin: 20px auto; /* Центрируем таблицу на странице */
+    width: 300px;
+    border-collapse: collapse;
+    margin: 20px auto;
 }
 
 th {
-    text-align: center; /* Центрируем текст в заголовках */
-    padding: 8px; /* Добавляем внутренние отступы */
-    border: 1px solid #ccc; /* Границы для ячеек */
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ccc;
 }
 
 td {
-    text-align: center; /* Центрируем текст в ячейках */
-    padding: 1px; /* Добавляем внутренние отступы */
-    border: 1px solid #ccc; /* Границы для ячеек */
+    text-align: center;
+    padding: 1px;
+    border: 1px solid #ccc;
+}
+
+nav {
+    font-size: 20px;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
 }

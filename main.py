@@ -4,7 +4,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user
 import blueprints.canteen_api
 import blueprints.schedule_api
 import blueprints.teachers_api
-from blueprints.schedule_api import schedule_get
+from blueprints.schedule_api import schedule_get, schedule_post
 from blueprints.user_api import create_user
 from data import db_session
 from data.models_all.users import User
@@ -82,12 +82,12 @@ def clear_table(form):
             form.days.entries[day].lessons.entries[lesson].subject.data = ''
 
 
-@app.route('/schedule', methods=['GET', 'POST'])
+@app.route('/schedule', methods=['GET', 'POST', 'PUT'])
 def schedule():
-    form = ScheduleForm(is_editing=False)
+    form = ScheduleForm()
     if request.method == 'POST':
         json = schedule_get(f'{request.form["grade_level"]}_{request.form["class_word"]}')
-        if json:
+        if json is not None:
             for elem in json.json['schedule']:
                 day = int(elem['day_of_week'])
                 lesson_index = elem['number_lesson']
@@ -98,6 +98,10 @@ def schedule():
         else:
             clear_table(form)
             return render_template('schedule.html', message='Для этого класса расписания не найдено', form=form)
+    if request.method == 'PUT':
+        '''пока не работает, потому что в коде джаваскрипта нужно создавать список,
+        где будут значения из таблицы, а это у меня не получилось'''
+        print(request.data)
     return render_template('schedule.html', form=form)
 
 
