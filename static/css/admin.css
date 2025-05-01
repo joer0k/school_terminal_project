@@ -1,3 +1,15 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f1f5f8;
+    font-family: "Zilla Slab", serif;
+    overflow: hidden;
+}
+
 body {
     background-image: url(/static/images/background.png) !important;
     background-repeat: no-repeat !important;

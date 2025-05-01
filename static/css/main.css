@@ -1,0 +1,299 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f1f5f8;
+    font-family: "Zilla Slab", serif;
+    overflow: hidden;
+}
+
+body {
+    background-image: url(/static/images/background.png) !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-attachment: fixed !important;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+    background-size: cover !important;
+}
+
+img.logo {
+    position: absolute;
+    width: auto;
+    height: auto;
+    display: block;
+    top: 20px;
+    left: 50px
+}
+
+form {
+    font-size: 22px;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+}
+
+form.login_form {
+    position: relative;
+    margin-top: 25%;
+    margin-left: 30%;
+    margin-right: 30%;
+    width: 40%;
+}
+
+form.register_form {
+    position: relative;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+h1.register {
+    position: relative;
+    margin-left: 30%;
+    margin-right: 35%;
+    font-size: 40px;
+}
+
+h1.login {
+    position: relative;
+    margin-left: 35%;
+    margin-right: 35%;
+    font-size: 40px;
+}
+
+form.schedule {
+    position: relative;
+    width: 80%;
+}
+
+table.schedule {
+    width: 300px;
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+th {
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+td {
+    text-align: center;
+    padding: 1px;
+    border: 1px solid #ccc;
+}
+
+nav {
+    font-size: 20px;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+}
+
+h2 {
+    font-family: "Great Vibes", cursive;
+    font-size: 3rem;
+    text-align: center;
+    color: #edebf3;
+    padding-top: 50px;
+}
+
+.menu {
+    margin-top: 20px;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+}
+
+.btn-item {
+    margin-left: 15px;
+}
+
+.photo {
+    width: 30%;
+    height: 175px;
+    object-fit: cover;
+    border: 0.25rem solid black;
+    border-radius: 10px;
+    box-shadow: -10px 10px 10px 0px rgba(0, 0, 0, 0.75);
+}
+
+.menu-items {
+    display: flex;
+    margin: 20px 0;
+    padding-right: 50px;
+}
+
+.menu-info {
+    margin-left: 20px;
+    width: 100%;
+}
+
+.menu-title {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+}
+
+h4 {
+    color: #140558;
+}
+
+.menu-text {
+    padding-top: 20px;
+}
+
+
+.logo {
+    margin: 25px !important;
+    width: 150px !important;
+    height: 150px !important;
+}
+
+.title {
+    font-size: 35px !important;
+    font-weight: bold !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    text-shadow: 4px 2px 4px rgba(80, 111, 236, 0.6) !important;
+    display: flex;
+}
+
+.title_text {
+    display: flex !important;
+    width: 1400px !important;
+    margin-top: -10px !important;
+    margin-left: 10px !important;
+    justify-content: center !important;
+    text-align: center !important;
+    align-items: center !important;
+}
+
+.header {
+    position: fixed; /* Фиксирует блок на экране */
+    top: 5px; /* Позиционирует блок в самом верху экрана */
+    left: 65px; /* Выравнивает блок по левому краю */
+    width: 100%; /* Занимает всю ширину экрана */
+    z-index: 1000; /* Обеспечивает, чтобы блок был поверх других элементов */
+    display: flex; /* Используется для гибкого размещения элементов внутри блока */
+}
+
+.logo {
+    margin-left: 20px; /* Отступ слева для логотипа */
+}
+
+.title_text {
+    text-align: center; /* Выравнивает текст по центру */
+    flex-grow: 1; /* Занимает доступное пространство между логотипом и временем */
+}
+
+.date_time {
+    width: 380px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 4px 2px 4px rgba(67, 102, 241, 0.6);
+}
+
+.container {
+    margin-top: 200px;
+}
+
+
+footer {
+    position: fixed;
+    left: 50px;
+    bottom: 10px;
+    width: 100%;
+}
+
+footer > p {
+    font-family: "Great Vibes", cursive;
+    font-size: 1.7rem;
+    text-align: center;
+    color: #170442;
+
+}
+
+.footer_href {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 40px;
+    background-color: aliceblue;
+    border-radius: 15px;
+    box-shadow: 4px 5px 4px rgba(27, 60, 195, 0.6);
+    font-size: 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    color: black !important;
+
+}
+
+footer > a {
+    text-decoration: none !important;
+    color: black !important;
+}
+
+.footer_href:hover {
+    background-image: linear-gradient(to bottom, #ffffff, #11c7f5);
+}
+
+.footer_href:active {
+    box-shadow: -4px -5px 4px rgba(27, 60, 195, 0.6);
+}
+
+.page-content {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    height: 650px;
+    height: 650px;
+    margin-top: 200px;
+    padding-left: 50px;
+    padding-right: 50px;
+    background-color: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(4px);
+
+    /* Стили для Firefox */
+    scrollbar-width: 25px;
+    scrollbar-color: rgba(0, 0, 0, 0.4) rgba(0, 0, 0, 0.05);
+}
+
+
+.page-content::-webkit-scrollbar {
+    width: 25px;
+}
+
+.page-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 25px;
+}
+
+.page-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 25px;
+}
+
+.page-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.sticky-title {
+    position: sticky;
+    top: 220px;
+    background-color: rgba(255, 255, 255, 0);
+    padding-top: 10px;
+    margin-top: 0;
+    z-index: 10;
+}
