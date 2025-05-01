@@ -27,15 +27,32 @@ def clear_table(form):
 def schedule():
     form = ScheduleForm()
     if request.method == 'POST':
-        json = schedule_get(f'{request.form["grade_level"]}_{request.form["class_word"]}')
+        json = schedule_get()
         if json is not None:
-            for elem in json.json['schedule']:
-                day = int(elem['day_of_week'])
-                lesson_index = elem['number_lesson']
-                subject_name = elem['subject']['subject_name']
-
-                form.days.entries[day].lessons.entries[lesson_index].subject.data = subject_name
-            return render_template('schedule.html', form=form)
+            result = {}
+            for item in json.json['schedule']:
+                class_name = f'{item["class_name"]["grade_level"]}_{item["class_name"]["class_word"]}'
+                if class_name not in result.keys():
+                    result[class_name] = [{
+                        'classroom_id': item['classroom_id'],
+                        'day_of_week': item['day_of_week'],
+                        'number_lesson': item['number_lesson'],
+                        'subject': item['subject']['subject_name']
+                    }]
+                else:
+                    result[class_name] += {
+                        'classroom_id': item['classroom_id'],
+                        'day_of_week': item['day_of_week'],
+                        'number_lesson': item['number_lesson'],
+                        'subject': item['subject']['subject_name']
+                    }
+            # for elem in json.json['schedule']:
+            #     day = int(elem['day_of_week'])
+            #     lesson_index = elem['number_lesson']
+            #     subject_name = elem['subject']['subject_name']
+            #
+            #     form.days.entries[day].lessons.entries[lesson_index].subject.data = subject_name
+            return render_template('schedule.html', data=result)
         else:
             clear_table(form)
             return render_template('schedule.html', message='Для этого класса расписания не найдено', form=form)

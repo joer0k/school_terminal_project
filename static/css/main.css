@@ -64,24 +64,29 @@ h1.login {
     margin-right: 35%;
     font-size: 40px;
 }
-
 form.schedule {
     position: relative;
-    width: 80%;
+    margin-left: 16%;
+    margin-top: 14%;
 }
-
-table.schedule {
-    width: 300px;
-    border-collapse: collapse;
-    margin: 20px auto;
+div.selects {
+    display: flex;
+    gap: 10px;
+    position: relative;
+    margin-bottom: 30px;
+    white-space: nowrap;
 }
-
 th {
     text-align: center;
     padding: 8px;
     border: 1px solid #ccc;
 }
 
+table.schedule {
+    height: 100px;
+    border: none !important;
+    outline: none !important;
+}
 td {
     text-align: center;
     padding: 1px;
