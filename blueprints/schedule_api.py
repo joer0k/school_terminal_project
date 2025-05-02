@@ -3,6 +3,7 @@ from flask import request, jsonify
 from werkzeug.exceptions import BadRequest
 
 from data import db_session
+from data.models_all.classes import Classes
 from data.models_all.schedule import Schedule
 
 schedule_bp = flask.Blueprint('schedule_api', __name__, template_folder='templates')
@@ -15,7 +16,8 @@ def schedule_get():
     schedule = session.query(Schedule).all()
     return flask.jsonify(
         {'schedule': [
-            item.to_dict(only=('class_name', 'day_of_week', 'subject.subject_name', 'classroom_id', 'number_lesson')) for item
+            item.to_dict(only=('class_name', 'day_of_week', 'subject.subject_name', 'classroom_id', 'number_lesson'))
+            for item
             in
             schedule]})
     # data = []
@@ -28,6 +30,20 @@ def schedule_get():
     #         item.number_lesson
     #     ]}
     # return jsonify(data)
+
+
+@schedule_bp.route('/classes', methods=['GET'])
+def classes_get():
+    '''Получает список всех классов'''
+    session = db_session.create_session()
+    classes = session.query(Classes).all()
+    data = {}
+    for item in classes:
+        if item.grade_level not in data.keys():
+            data[item.grade_level] = [item.class_word]
+        else:
+            data[item.grade_level] += [item.class_word]
+    return jsonify(data)
 
 
 @schedule_bp.route('/schedule', methods=['POST'])

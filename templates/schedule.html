@@ -3,90 +3,37 @@
     <form action="" method="post" class="schedule">
         {{ form.hidden_tag() }}
         <div class="selects">
-            <p style="display: flex; height: 40px; gap: 20px">
-                {{ form.grade_level.label }} {{ form.grade_level(style='margin-left:11%;width:100px;border-radius:10px', id='select_grade') }}
+            <p style="display: flex; height: 55px; gap: 20px">
+                {{ form.grade_level.label(style='font-weight:bold;font-size:32px') }} {{ form.grade_level(style='margin-left:11%;width:100px;border-radius:10px', id='select_grade') }}
             </p>
-            <p style="display: flex; height: 40px; gap: 20px; margin-left: 50px">
-                {{ form.class_word.label }}
-                {{ form.class_word(style='margin-left:4%;width:50px;border-radius:10px', id='select_class') }}
-            </p>
+            {#            <p style="display: flex; height: 40px; gap: 20px; margin-left: 50px">#}
+            {#                {{ form.class_word.label }}#}
+            {#                {{ form.class_word(style='margin-left:4%;width:50px;border-radius:10px', id='select_class') }}#}
+            {#            </p>#}
             <a>{{ form.submit(type="submit", class="btn btn-primary", style='width: 235px; background-color: #202020') }}</a>
         </div>
-{#                <script>#}
-{#                    const selectField_grade = document.getElementById('select_grade')#}
-{##}
-{#                    const selectField_class = document.getElementById('select_class')#}
-{##}
-{##}
-{#                    selectField_class.addEventListener('change', function (event) {#}
-{#                        event.preventDefault()#}
-{#                        const selected_grade = selectField_grade.value#}
-{#                        const selected_class = selectField_class.value#}
-{##}
-{#                        const formData1 = new FormData()#}
-{#                        formData1.append('selected_grade', selected_grade)#}
-{#                        formData1.append('selected_class', selected_class)#}
-{##}
-{#                        fetch('/schedule', {#}
-{#                            method: 'POST',#}
-{#                            body: formData1#}
-{#                        })#}
-{#                    });#}
-{#                    selectField_grade.addEventListener('change', function (event) {#}
-{#                        event.stopPropagation()#}
-{#                        const selected_grade = selectField_grade.value#}
-{#                        const selected_class = selectField_class.value#}
-{##}
-{#                        const formData2 = new FormData()#}
-{#                        formData2.append('selected_grade', selected_grade)#}
-{#                        formData2.append('selected_class', selected_class)#}
-{##}
-{#                        fetch('/schedule', {#}
-{#                            method: 'POST',#}
-{#                            body: formData2#}
-{#                        })#}
-{#                    });#}
-{#                </script>#}
+        <div id="button_container" style="align-items: center;display: flex;justify-content: center"></div>
         <script>
+            const classData = {{ classes | tojson }}
+            const selector = document.getElementById('select_grade')
+            const buttonContainer = document.getElementById('button_container')
+            console.log(classData)
+            selector.addEventListener('change', function () {
+                const selectedGrade = selector.value
 
-            const button_save = document.getElementById('save_button');
-            const class_word =
-                `${document.getElementById('select_grade').value}_${document.getElementById('select_class').value}`;
+                buttonContainer.innerHTML = ''
 
-            const table = document.querySelector('.schedule');
-            const scheduleData = [];
-            const rows = table.querySelectorAll('tbody tr');
-
-            rows.forEach(row => {
-                const lessonData = [];
-                const cells = row.querySelectorAll('td');
-
-                cells.forEach((cell, index) => {
-                    if (index === 0) return;
-                    const input = cell.querySelector('input');
-                    if (input) {
-                        const value = input.value.trim();
-                        if (value !== '') {
-                            lessonData.push(value);
-                        }
-                    } else {
-                        const text = cell.textContent.trim();
-                        if (text !== '') {
-                            lessonData.push(text);
-                        }
-                    }
-                });
-
-                if (lessonData.length > 0) {
-                    scheduleData.push(lessonData);
+                if (selectedGrade && classData[selectedGrade]) {
+                    classData[selectedGrade].forEach(letter => {
+                        const button = document.createElement('button');
+                        button.type = 'button'
+                        button.textContent = `${selectedGrade}${letter}`
+                        button.style = 'height:60px;width:130px;border-radius:35px;' +
+                            'margin-bottom:40px;background-color:aliceblue;' +
+                            'box-shadow: 4px 5px 4px rgba(27, 60, 195, 0.6);font-weight:bold'
+                        buttonContainer.appendChild(button)
+                    })
                 }
-            });
-
-            button_save.addEventListener('click', function () {
-                fetch(`/schedule`, {
-                    method: 'PUT',
-                    body: JSON.stringify(scheduleData)
-                })
             })
         </script>
         <table class="schedule">

@@ -84,8 +84,9 @@ def clear_table(form):
 def schedule():
     form = ScheduleForm()
     if request.method == 'POST':
-        json = schedule_get(f'{request.form["grade_level"]}_{request.form["class_word"]}')
+        json = schedule_get()
         if json is not None:
+            result = json.json[f'{request.form["grade_level"]}_{request.form["class_word"]}']
             for elem in json.json['schedule']:
                 day = int(elem['day_of_week'])
                 lesson_index = elem['number_lesson']
