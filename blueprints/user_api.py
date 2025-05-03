@@ -57,9 +57,6 @@ def create_user():
         user = User(
             surname=data['surname'],
             name=data['name'],
-            second_name=data['second_name'],
-            age=data['age'],
-            speciality=data['speciality'],
             email=data['email'],
         )
         user.set_password(data['password'])

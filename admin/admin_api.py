@@ -1,5 +1,5 @@
-from flask import render_template, request, redirect
-from flask_login import LoginManager, login_user, login_required, logout_user
+from flask import render_template, request, redirect, current_app
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 import blueprints.canteen_api
 import blueprints.schedule_api
@@ -17,20 +17,13 @@ admin_bp.register_blueprint(blueprints.schedule_api.schedule_bp, url_prefix='/ap
 admin_bp.register_blueprint(blueprints.user_api.users_bp, url_prefix='/api')
 admin_bp.register_blueprint(blueprints.canteen_api.canteen_bp, url_prefix='/api')
 admin_bp.register_blueprint(blueprints.teachers_api.teachers_bp, url_prefix='/api')
-# login_manager = LoginManager()
-# login_manager.init_app(admin_bp)
 
 
-# @login_manager.user_loader
-# def load_user(user_id):
-#     db_sess = db_session.create_session()
-#     return db_sess.get(User, user_id)
-
-
+@login_required
 @admin_bp.route('/')
 def index():
     """Прогружает главную страницу"""
-    return redirect('/admin/login')
+    return render_template('admin/main.html', title='Авторизация')
 
 
 @admin_bp.route('/login', methods=['GET', 'POST'])
@@ -50,7 +43,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect('/')
+    return redirect('/admin')
 
 
 @admin_bp.route('/register')
@@ -80,25 +73,30 @@ def clear_table(form):
             form.days.entries[day].lessons.entries[lesson].subject.data = ''
 
 
-@admin_bp.route('/schedule', methods=['GET', 'POST', 'PUT'])
+@admin_bp.route('/schedule', methods=['GET', 'POST'])
 def schedule():
+    if not current_user.is_authenticated:
+        return current_app.login_manager.unauthorized()
     form = ScheduleForm()
+    classes = []
     if request.method == 'POST':
-        json = schedule_get()
+        json = schedule_get(int(form.grade_level.data))
         if json is not None:
-            result = json.json[f'{request.form["grade_level"]}_{request.form["class_word"]}']
-            for elem in json.json['schedule']:
-                day = int(elem['day_of_week'])
-                lesson_index = elem['number_lesson']
-                subject_name = elem['subject']['subject_name']
-
-                form.days.entries[day].lessons.entries[lesson_index].subject.data = subject_name
-            return render_template('/admin/schedule.html', form=form)
-        else:
-            clear_table(form)
-            return render_template('/admin/schedule.html', message='Для этого класса расписания не найдено', form=form)
-    if request.method == 'PUT':
-        '''пока не работает, потому что в коде джаваскрипта нужно создавать список,
-        где будут значения из таблицы, а это у меня не получилось'''
-        print(request.data)
-    return render_template('/admin/schedule.html', form=form)
+            result = {}
+            for item in json.json['schedule']:
+                class_name = f'{item["class_name"]["grade_level"]}_{item["class_name"]["class_word"]}'
+                if class_name not in result.keys():
+                    result[class_name] = {}
+                day = item['weekday']['weekday']
+                number = item['number_lesson']
+                subject = item['subject']['subject_name']
+                if day not in result[class_name].keys():
+                    result[class_name][day] = {}
+                result[class_name][day][number] = f'{subject} (каб. {item["classroom"]["room_number"]})'
+            classes = sorted(result.keys())
+            return render_template('admin/schedule.html', form=form, data=result, classes=classes,
+                                   title='Расписание занятий')
+    else:
+        return render_template('admin/schedule.html', form=form,
+                               data=[], title='Расписание занятий')
+    return render_template('admin/schedule.html', form=form, title='Расписание занятий')

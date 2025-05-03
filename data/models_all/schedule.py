@@ -17,3 +17,4 @@ class Schedule(SqlAlchemyBase, SerializerMixin):
     subject = orm.relationship('Subjects')
     weekday = orm.relationship('Weekday')
     class_name = orm.relationship('Classes')
+    classroom = orm.relationship('Classrooms')

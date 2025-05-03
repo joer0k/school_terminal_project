@@ -1,129 +1,210 @@
 {% extends '/admin/base_admin.html' %}
+{% block extra_css %}
+{% endblock %}
+
 {% block content %}
-    <img class='logo' src="/static/images/logo.png">
-    <h1>{{ title }}</h1>
-    <form action="" method="post" class="schedule">
-        {{ form.hidden_tag() }}
-        <div>
-            <p>
-                {{ form.grade_level.label }} {{ form.grade_level(style='margin-left:11%;width:50px', id='select_grade') }}
-            </p>
-            <p>
-                {{ form.class_word.label }}
-                {{ form.class_word(style='margin-left:4%;width:50px', id='select_class') }}
-            </p>
-            <p>{{ form.is_edit(type="checkbox", class="form-check-input", style="background-color: #202020") }} {{ form.is_edit.label(style='margin-left:3%;') }}</p>
-            <div style="display: inline">
-                <a>{{ form.submit(type="submit", class="btn btn-primary", style='width: 235px; background-color: #202020') }}</a>
-                {% if form.is_edit.data == True %}
-                    <a class="btn btn-primary" style="width: 235px; background-color: #202020"
-                       id="save_button">Сохранить</a>
-                {% endif %}
+    <div class="page-content">
+        <form action="" method="post" class="schedule">
+            <div class="main">
+                {{ form.hidden_tag() }}
+                <div class="selects">
+                    <p style="display: flex; height: 55px; gap: 20px">
+                        {{ form.grade_level.label(style='font-weight:bold;font-size:32px') }} {{ form.grade_level(style='margin-left:11%;width:100px;border-radius:10px', id='select_grade') }}
+                    </p>
+
+                    <a>{{ form.submit(type="submit", class="btn btn-success", style='height:55px; width: 235px;') }}</a>
+                    <label class="custom-checkbox">
+                        <input type="checkbox" class='edit_mode'>
+                        Редактирование
+                    </label>
+                    <button id="saveButton" class="hidden">Сохранить</button>
+                </div>
+                <div id="button_container" style="align-items: center;display: flex;justify-content: center"></div>
+
+                <div class="class-buttons mb-4">
+                    {% for class_name in classes %}
+                        <button type="button"
+                                class="btn {% if loop.first %}btn-success{% else %}btn-outline-success{% endif %} me-2 class-btn"
+                                data-class="{{ class_name }}" style="width:100px;">
+                            {{ class_name }}
+                        </button>
+
+                    {% endfor %}
+                </div>
+                <table class="table table-bordered table-fixed" id="schedule-table">
+                    <colgroup>
+                        <col style="width: 150px">  <!-- Номер урока -->
+                        <col style="width: calc((100% - 150px) / 6)">  <!-- Понедельник -->
+                        <col style="width: calc((100% - 150px) / 6)">  <!-- Вторник -->
+                        <col style="width: calc((100% - 150px) / 6)">  <!-- Среда -->
+                        <col style="width: calc((100% - 150px) / 6)">  <!-- Четверг -->
+                        <col style="width: calc((100% - 150px) / 6)">  <!-- Пятница -->
+                        <col style="width: calc((100% - 150px) / 6)">  <!-- Суббота -->
+                    </colgroup>
+
+                    <thead>
+                    <tr>
+                        <th>Урок</th>
+                        <th>Понедельник</th>
+                        <th>Вторник</th>
+                        <th>Среда</th>
+                        <th>Четверг</th>
+                        <th>Пятница</th>
+                        <th>Суббота</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for lesson_index in range(7) %}
+                        <tr>
+                            <td>{{ lesson_index + 1 }}-й урок</td>
+                            {% for day in form.days %}
+                                <td {% if form.is_edit.data== False %}style="pointer-events: none"
+                                    {% else %}style="pointer-events: auto" {% endif %}>{{ day.form.lessons[lesson_index].subject(style='width:200px') }}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div>{{ message }}</div>
             </div>
-        </div>
-        {#        <script>#}
-        {#            const selectField_grade = document.getElementById('select_grade')#}
-        {##}
-        {#            const selectField_class = document.getElementById('select_class')#}
-        {##}
-        {##}
-        {#            selectField_class.addEventListener('change', function (event) {#}
-        {#                event.preventDefault()#}
-        {#                const selected_grade = selectField_grade.value#}
-        {#                const selected_class = selectField_class.value#}
-        {##}
-        {#                const formData1 = new FormData()#}
-        {#                formData1.append('selected_grade', selected_grade)#}
-        {#                formData1.append('selected_class', selected_class)#}
-        {##}
-        {#                fetch('/schedule', {#}
-        {#                    method: 'POST',#}
-        {#                    body: formData1#}
-        {#                })#}
-        {#            });#}
-        {#            selectField_grade.addEventListener('change', function (event) {#}
-        {#                event.stopPropagation()#}
-        {#                const selected_grade = selectField_grade.value#}
-        {#                const selected_class = selectField_class.value#}
-        {##}
-        {#                const formData2 = new FormData()#}
-        {#                formData2.append('selected_grade', selected_grade)#}
-        {#                formData2.append('selected_class', selected_class)#}
-        {##}
-        {#                fetch('/schedule', {#}
-        {#                    method: 'POST',#}
-        {#                    body: formData2#}
-        {#                })#}
-        {#            });#}
-        {#        </script>#}
-        <script>
+        </form>
 
-            const button_save = document.getElementById('save_button');
-            const class_word =
-                `${document.getElementById('select_grade').value}_${document.getElementById('select_class').value}`;
+    </div>
+{% endblock %}
+{% block extra_js %}
 
-            const table = document.querySelector('.schedule');
-            const scheduleData = [];
-            const rows = table.querySelectorAll('tbody tr');
+    <script>
+        const scheduleData = {{ data | tojson }};
+    </script>
+    <script>
 
-            rows.forEach(row => {
-                const lessonData = [];
-                const cells = row.querySelectorAll('td');
+        function updateSchedule(class_name) {
+            const lessons = scheduleData[class_name] || {};
+            const daysOfWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+            const tableBody = document.querySelector('#schedule-table tbody');
 
-                cells.forEach((cell, index) => {
-                    if (index === 0) return;
-                    const input = cell.querySelector('input');
-                    if (input) {
-                        const value = input.value.trim();
-                        if (value !== '') {
-                            lessonData.push(value);
-                        }
+            if (!tableBody) return;
+
+            tableBody.innerHTML = ''; // очищаем предыдущие данные
+
+            // 7 уроков
+            for (let lessonNum = 1; lessonNum <= 7; lessonNum++) {
+                const row = document.createElement('tr');
+
+                // Ячейка с номером урока
+                const numCell = document.createElement('td');
+                numCell.textContent = `${lessonNum}-й урок`;
+                row.appendChild(numCell);
+
+                // Для каждого дня недели
+                daysOfWeek.forEach(day => {
+                    const cell = document.createElement('td');
+                    cell.textContent = lessons[day]?.[lessonNum] || '';
+                    if (editing.checked) {
+                        cell.contentEditable = true
                     } else {
-                        const text = cell.textContent.trim();
-                        if (text !== '') {
-                            lessonData.push(text);
-                        }
+                        cell.contentEditable = false
                     }
+                    row.appendChild(cell);
                 });
 
-                if (lessonData.length > 0) {
-                    scheduleData.push(lessonData);
-                }
+                tableBody.appendChild(row);
+            }
+        }
+    </script>
+
+    <script>
+        let selectedGlobal = ''
+        document.addEventListener("DOMContentLoaded", function () {
+            const table = document.getElementById('schedule-table');
+            const buttons = document.querySelectorAll('.class-btn');
+
+            if (!buttons.length || !table) return;
+
+            // Функция для установки активной кнопки
+            function setActive(button) {
+                buttons.forEach(btn => {
+                    btn.classList.remove('btn-success');
+                    btn.classList.add('btn-outline-success');
+                });
+                button.classList.remove('btn-outline-success');
+                button.classList.add('btn-success');
+            }
+
+            // Обработчик клика
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const selectedClass = button.getAttribute('data-class');
+                    selectedGlobal = selectedClass
+                    updateSchedule(selectedClass);
+                    setActive(button);
+                });
             });
 
-            button_save.addEventListener('click', function () {
-                fetch(`/schedule`, {
-                    method: 'PUT',
-                    body: JSON.stringify(scheduleData)
+            // Активируем первую кнопку при загрузке
+            if (buttons.length > 0) {
+                const firstButton = buttons[0];
+                setActive(firstButton);
+                const selectedClass = firstButton.getAttribute('data-class');
+                selectedGlobal = selectedClass
+
+                updateSchedule(selectedClass);
+            }
+        });
+    </script>
+    <script>
+        const editing = document.querySelector('.edit_mode')
+        const saveButton = document.getElementById('saveButton')
+        editing.addEventListener('change', function (event) {
+            saveButton.classList.toggle('hidden', !event.target.checked)
+            if (selectedGlobal) {
+                updateSchedule(selectedGlobal)
+            } else {
+                updateSchedule()
+            }
+        })
+
+    </script>
+    <script>
+        saveButton.addEventListener('click', function () {
+            const scheduleData = [];
+            const daysOfWeek = ['1', '2', '3', '4', '5', '6'];
+            const tableBody = document.querySelector('#schedule-table tbody')
+            const rows = tableBody.querySelectorAll('tr')
+            rows.forEach((row, index) => {
+                const cells = row.querySelectorAll('td')
+                const lessonNumber = index + 1
+                const lessonData = {
+                    lessonNumber: lessonNumber,
+                    subjects: {}
+                }
+                daysOfWeek.forEach((day, i) => {
+                    const cell = cells[i + 1];
+                    lessonData.subjects[day] = cell.textContent.trim() || ''
                 })
+
+                scheduleData.push(lessonData)
             })
-        </script>
-        <table class="schedule">
-            <thead>
-            <tr style="text-align: center">
-                <th>Урок</th>
-                <th>Понедельник</th>
-                <th>Вторник</th>
-                <th>Среда</th>
-                <th>Четверг</th>
-                <th>Пятница</th>
-                <th>Суббота</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for lesson_index in range(7) %}
-                <tr>
-                    <td>{{ lesson_index + 1 }}-й урок</td>
-                    {% for day in form.days %}
-                        <td {% if form.is_edit.data == False %}style="pointer-events: none"
-                            {% else %}style="pointer-events: auto"{% endif %}>{{ day.form.lessons[lesson_index].subject(style='width:200px') }}</td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <div>{{ message }}</div>
-    </form>
+            scheduleData.push(selectedGlobal)
+            scheduleToAPI(scheduleData)
+        })
 
+        function scheduleToAPI(data) {
+            fetch('api/schedule', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw Error('Ошибка')
+                    }
+                    return response.json()
+                })
 
+        }
+    </script>
 {% endblock %}

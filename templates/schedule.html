@@ -1,67 +1,143 @@
 {% extends 'index.html' %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for ('static', filename='css/main.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for ('static', filename='css/stol.css') }}"/>
+{% endblock %}
+
 {% block content %}
-    <form action="" method="post" class="schedule">
-        {{ form.hidden_tag() }}
-        <div class="selects">
-            <p style="display: flex; height: 55px; gap: 20px">
-                {{ form.grade_level.label(style='font-weight:bold;font-size:32px') }} {{ form.grade_level(style='margin-left:11%;width:100px;border-radius:10px', id='select_grade') }}
-            </p>
-            {#            <p style="display: flex; height: 40px; gap: 20px; margin-left: 50px">#}
-            {#                {{ form.class_word.label }}#}
-            {#                {{ form.class_word(style='margin-left:4%;width:50px;border-radius:10px', id='select_class') }}#}
-            {#            </p>#}
-            <a>{{ form.submit(type="submit", class="btn btn-primary", style='width: 235px; background-color: #202020') }}</a>
-        </div>
-        <div id="button_container" style="align-items: center;display: flex;justify-content: center"></div>
-        <script>
-            const classData = {{ classes | tojson }}
-            const selector = document.getElementById('select_grade')
-            const buttonContainer = document.getElementById('button_container')
-            console.log(classData)
-            selector.addEventListener('change', function () {
-                const selectedGrade = selector.value
+    <div class="page-content">
+        <form action="" method="post" class="schedule">
+            <div class="main">
+                {{ form.hidden_tag() }}
+                <div class="selects">
+                    <p style="display: flex; height: 55px; gap: 20px">
+                        {{ form.grade_level.label(style='font-weight:bold;font-size:32px') }} {{ form.grade_level(style='margin-left:11%;width:100px;border-radius:10px', id='select_grade') }}
+                    </p>
+                    {# <p style="display: flex; height: 40px; gap: 20px; margin-left: 50px">#}
+                    {# {{ form.class_word.label }}#}
+                    {# {{ form.class_word(style='margin-left:4%;width:50px;border-radius:2px', id='select_class') }}#}
+                    {# </p>#}
+                    <a>{{ form.submit(type="submit", class="btn btn-success", style='height:55px; width: 235px;') }}</a>
+                </div>
+                <div id="button_container" style="align-items: center;display: flex;justify-content: center"></div>
 
-                buttonContainer.innerHTML = ''
-
-                if (selectedGrade && classData[selectedGrade]) {
-                    classData[selectedGrade].forEach(letter => {
-                        const button = document.createElement('button');
-                        button.type = 'button'
-                        button.textContent = `${selectedGrade}${letter}`
-                        button.style = 'height:60px;width:130px;border-radius:35px;' +
-                            'margin-bottom:40px;background-color:aliceblue;' +
-                            'box-shadow: 4px 5px 4px rgba(27, 60, 195, 0.6);font-weight:bold'
-                        buttonContainer.appendChild(button)
-                    })
-                }
-            })
-        </script>
-        <table class="schedule">
-            <thead>
-            <tr style="text-align: center">
-                <th>Урок</th>
-                <th>Понедельник</th>
-                <th>Вторник</th>
-                <th>Среда</th>
-                <th>Четверг</th>
-                <th>Пятница</th>
-                <th>Суббота</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for lesson_index in range(7) %}
-                <tr>
-                    <td>{{ lesson_index + 1 }}-й урок</td>
-                    {% for day in form.days %}
-                        <td {% if form.is_edit.data == False %}style="pointer-events: none"
-                            {% else %}style="pointer-events: auto"{% endif %}>{{ day.form.lessons[lesson_index].subject(style='width:200px') }}</td>
+                <div class="class-buttons mb-4">
+                    {% for class_name in classes %}
+                        <button type="button"
+                                class="btn {% if loop.first %}btn-success{% else %}btn-outline-success{% endif %} me-2 class-btn"
+                                data-class="{{ class_name }}" style="width:100px;">
+                            {{ class_name }}
+                        </button>
                     {% endfor %}
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <div>{{ message }}</div>
-    </form>
+                </div>
+                <table class="table table-bordered table-fixed" id="schedule-table">
+                    <colgroup>
+                        <col style="width: 150px">  <!-- Номер урока -->
+                        <col style="width: calc((100% - 150px) / 6)">  <!-- Понедельник -->
+                        <col style="width: calc((100% - 150px) / 6)">  <!-- Вторник -->
+                        <col style="width: calc((100% - 150px) / 6)">  <!-- Среда -->
+                        <col style="width: calc((100% - 150px) / 6)">  <!-- Четверг -->
+                        <col style="width: calc((100% - 150px) / 6)">  <!-- Пятница -->
+                        <col style="width: calc((100% - 150px) / 6)">  <!-- Суббота -->
+                    </colgroup>
 
+                    <thead>
+                    <tr>
+                        <th>Урок</th>
+                        <th>Понедельник</th>
+                        <th>Вторник</th>
+                        <th>Среда</th>
+                        <th>Четверг</th>
+                        <th>Пятница</th>
+                        <th>Суббота</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for lesson_index in range(7) %}
+                        <tr>
+                            <td>{{ lesson_index + 1 }}-й урок</td>
+                            {% for day in form.days %}
+                                <td {% if form.is_edit.data== False %}style="pointer-events: none"
+                                    {% else %}style="pointer-events: auto" {% endif %}>{{ day.form.lessons[lesson_index].subject(style='width:200px') }}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div>{{ message }}</div>
+            </div>
+        </form>
 
+    </div>
+{% endblock %}
+{% block extra_js %}
+    <script>
+        const scheduleData = {{ data | tojson }};
+    </script>
+    <script>
+        function updateSchedule(class_name) {
+            const lessons = scheduleData[class_name] || {};
+            const daysOfWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+
+            const tableBody = document.querySelector('#schedule-table tbody');
+            if (!tableBody) return;
+
+            tableBody.innerHTML = ''; // очищаем предыдущие данные
+
+            // 7 уроков
+            for (let lessonNum = 1; lessonNum <= 7; lessonNum++) {
+                const row = document.createElement('tr');
+
+                // Ячейка с номером урока
+                const numCell = document.createElement('td');
+                numCell.textContent = `${lessonNum}-й урок`;
+                row.appendChild(numCell);
+
+                // Для каждого дня недели
+                daysOfWeek.forEach(day => {
+                    const cell = document.createElement('td');
+                    cell.textContent = lessons[day]?.[lessonNum] || '';
+                    row.appendChild(cell);
+                });
+
+                tableBody.appendChild(row);
+            }
+        }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const buttons = document.querySelectorAll('.class-btn');
+            const table = document.getElementById('schedule-table');
+
+            if (!buttons.length || !table) return;
+
+            // Функция для установки активной кнопки
+            function setActive(button) {
+                buttons.forEach(btn => {
+                    btn.classList.remove('btn-success');
+                    btn.classList.add('btn-outline-success');
+                });
+                button.classList.remove('btn-outline-success');
+                button.classList.add('btn-success');
+            }
+
+            // Обработчик клика
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const selectedClass = button.getAttribute('data-class');
+                    updateSchedule(selectedClass);
+                    setActive(button);
+                });
+            });
+
+            // Активируем первую кнопку при загрузке
+            if (buttons.length > 0) {
+                const firstButton = buttons[0];
+                setActive(firstButton);
+                const selectedClass = firstButton.getAttribute('data-class');
+                updateSchedule(selectedClass);
+            }
+        });
+    </script>
 {% endblock %}
