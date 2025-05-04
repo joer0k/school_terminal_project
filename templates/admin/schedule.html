@@ -199,9 +199,11 @@
                 body: JSON.stringify(data)
             })
                 .then(response => {
+
                     if (!response.ok) {
                         throw Error('Ошибка')
                     }
+                    updateSchedule(selectedGlobal)
                     return response.json()
                 })
 
