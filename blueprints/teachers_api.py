@@ -1,17 +1,18 @@
 import flask
 from flask import request, make_response, jsonify
+from werkzeug.security import generate_password_hash
 
 from data import db_session
 from data.models_all.teachers import Teachers
 
-teachers_bp = flask.Blueprint(
+teachers_blueprint = flask.Blueprint(
     'teachers_api',
     __name__,
     template_folder='templates'
 )
 
 
-@teachers_bp.route('/teachers')
+@teachers_blueprint.route('/teachers')
 def get_teachers():
     db_session.global_init("db/mars.db")
     session = db_session.create_session()
@@ -21,7 +22,7 @@ def get_teachers():
         item in teachers]})
 
 
-@teachers_bp.route('/teachers/<int:teacher_id>')
+@teachers_blueprint.route('/teachers/<int:teacher_id>')
 def get_one_teacher(teacher_id):
     db_session.global_init("db/mars.db")
     session = db_session.create_session()
@@ -30,7 +31,7 @@ def get_one_teacher(teacher_id):
         only=('id', 'teacher_name', 'post_id', 'way_to_photo', 'additional_information'))]})
 
 
-@teachers_bp.route('/teachers', methods=['POST'])
+@teachers_blueprint.route('/teachers', methods=['POST'])
 def create_teacher():
     teacher = request.json
     if not teacher:
@@ -51,7 +52,7 @@ def create_teacher():
     return jsonify({'id': new_teacher.id})
 
 
-@teachers_bp.route('/teachers/<int:teacher_id>', methods=['DELETE'])
+@teachers_blueprint.route('/teachers/<int:teacher_id>', methods=['DELETE'])
 def delete_user(teacher_id):
     db_sess = db_session.create_session()
     teacher = db_sess.query(Teachers).get(teacher_id)
@@ -62,7 +63,7 @@ def delete_user(teacher_id):
     return jsonify({'success': 'OK'})
 
 
-@teachers_bp.route('/teachers/<int:teacher_id>', methods=['PUT'])
+@teachers_blueprint.route('/teachers/<int:teacher_id>', methods=['PUT'])
 def change_user(teacher_id):
     db_session.global_init("db/mars.db")
     db_sess = db_session.create_session()

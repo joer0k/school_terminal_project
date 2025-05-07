@@ -76,77 +76,73 @@ td {
     border: 1px solid #ccc; /* Границы для ячеек */
 }
 
+.title {
+    font-size: 35px !important;
+    font-weight: bold !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    text-shadow: 4px 2px 4px rgba(80, 111, 236, 0.6) !important;
+}
+
+.title_text{
+    display: flex !important;
+    width: 1400px !important;
+    margin-top: -10px !important;
+    margin-left: 10px !important;
+    justify-content: center !important;
+    text-align: center !important;
+    align-items: center !important;
+}
+
+p{
+    text-align: center !important;
+    line-height: 120% !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    margin-top: 30px !important;
+}
+
+.date_time{
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-left: -20px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 4px 2px 4px rgba(67, 102, 241, 0.6);
+}
+
 .main{
     margin-top: 100px;
     margin-left: 55px;
     width: auto;
-    height: 700px;
+    height: 600px;
     display: grid;
+    grid-template: 1fr 1fr/ 1fr 1fr 1fr 1fr;
     justify-self: center;
     justify-content: space-around;
     align-items: center;
 }
 
-.my_img {
-    height: 100px;
-    width: 100px;
-    background-color: #b5edc2;
-    border-radius: 50%;
-    object-fit: cover;
-
-.card_image{
-    width: 120px;
-    margin: 20px;
-}
-
-}
-
-.round-text {
-  width: 1200px; /* половина ширины полного круга */
-  height: 600px;
-  border-top-right-radius: 600px;
-  border-top-left-radius: 600px;
-  margin-top:-20px;
-  margin-left:-130px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: black;
-  position: absolute;
-  transform: translate(20%, 20%);
-  border: 2px solid black;
-  z-index: -1;
-}
-
 .rasp{
     display: flex;
-    background-color: #fff;
-    text-align: center;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
+    width: 400px;
+    height: 250px;
+    background-color: aliceblue;
+    border-radius: 35px;
     box-shadow: 4px 5px 4px rgba(27,60,195,0.6);
     -ms-user-select: none;
     user-select: none;
-    z-index: 1;
-    overflow: hidden;
+    margin: 20px;
 }
 
-#clock{
-    color: black;
-    font-weight: bold;
-    font-size: 25px;
-    margin-left: 195px;
-    margin-top: 0px;
+.rasp:hover{
+    background-image: linear-gradient(to bottom, #ffffff, #11c7f5);
 }
 
-.rasp img{
-    width: 80px;
-    object-fit: cover;
+.rasp:active{
+    box-shadow: -4px -5px 4px rgba(27,60,195,0.6);
 }
 
 .card_text{
@@ -157,26 +153,31 @@ td {
     text-shadow: 4px 2px 4px rgba(46, 66, 148, 0.6);
 }
 
-.for_mountains {
-    height: 350px;
-    width: 700px;
-    border-top-right-radius: 350px;
-    border-top-left-radius: 350px;
-    margin-top: 349px;
-    margin-left: 350px;
-    overflow: hidden;
+footer{
+    margin-top: 100px;
+    padding-right: 20px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: black;
-    position: absolute;
-    border: 2px solid black;
-    z-index: -1;
+    justify-content: end;
+    font-size: 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: italic;
+    font-weight: bold;
 }
 
-.for_mountains img {
-    height: 350px;
-    width: 100%;
-    object-fit: cover;
+a{
+    text-decoration: none !important;
+    color: black !important;
+}
+
+#clock{
+    color: black;
+    font-weight: bold;
+    font-size: 25px;
+    margin-left: 195px;
+    margin-top: 0px;
+}
+
+.card_image{
+    width: 120px;
+    margin: 20px;
 }

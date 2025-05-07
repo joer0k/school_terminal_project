@@ -1,73 +1,77 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>{{ title }}</h1>
-<!--            <h1 style="font-family: gabriola;margin-top:-500px;margin-left:-1000px">МОУ</h1>-->
-<div class="title_text" style="font-size:45px">
-        МОУ гимназия № 87
-</div>
-<div class="date_time">
-    <script language="javascript" type="text/javascript">
-        var d = new Date();
-
-        var day=new Array("Воскресенье","Понедельник","Вторник",
-        "Среда","Четверг","Пятница","Суббота");
-
-        var month=new Array("января","февраля","марта","апреля","мая","июня",
-        "июля","августа","сентября","октября","ноября","декабря");
-
-        document.write(d.getDate() + " " + " " + month[d.getMonth()]
-        + " " + d.getFullYear() + " г. " + day[d.getDay()]);
-    </script>
-    <div id="clock"></div>
-</div>
-<div style="backdrop-filter: blur(50px);
-height: 700px;
-width: 1410px;
-margin-left:-60px;
-border-radius: 100px 100px">
-        <div class="for_mountains">
-            <img src="/static/images/mountains.jpg" alt="горы">
-        </div>
-
-        <div class="round-text" style="background-color: transparent;">
-
-
-            <a href="schedule" class="rasp" style="position:absolute;margin-left:-1160px;margin-top:370px">
-                <img src="/static/images/rasp3.png" alt="e">
-                <!--        <span class="card_text">Расписание</span>-->
-            </a>
-
-            <a href="7" class="rasp" style="position:absolute;margin-left:1150px;margin-top:370px">
-                <img class="card_image" src="/static/images/teachers.png" alt="">
-                <!--        <span class="card_text">Расписание</span>-->
-            </a>
-
-            <a href="2" class="rasp" style="position:absolute;margin-left:-960px;margin-top:-100px">
-                <img class="card_image" src="/static/images/time.png" alt="">
-                <!--        <span class="card_text">Расписание</span>-->
-            </a>
-
-            <a href="3" class="rasp" style="position:absolute;margin-left:-560px;margin-top:-450px">
-                <img class="card_image" src="/static/images/gallery.png" alt="">
-                <!--        <span class="card_text">Расписание</span>-->
-            </a>
-
-            <a href="4" class="rasp" style="position:absolute;margin-left:2px;margin-top:-560px">
-                <img class="card_image" src="/static/images/itcube.png" alt="">
-                <!--        <span class="card_text">Расписание</span>-->
-            </a>
-
-            <a href="5" class="rasp" style="position:absolute;margin-left:580px;margin-top:-410px">
-                <img class="card_image" src="/static/images/medicine.png" alt="">
-                <!--        <span class="card_text">Расписание</span>-->
-            </a>
-
-            <a href="6" class="rasp" style="position:absolute;margin-left:980px;margin-top:-70px">
-                <img class="card_image" src="/static/images/eat.png" alt="">
-                <!--        <span class="card_text">Расписание</span>-->
-            </a>
-
-        </div>
+<div class="header">
+    <img class="logo" src="images/logo.png" alt="">
+    <div class="title_text">
+        <p class="title">
+            Муниципальное общеобразовательное учреждение <br> муниципального образования город Краснодар <br>
+            ГИМНАЗИЯ № 87 ИМЕНИ ГЕРОЯ СОВЕТСКОГО СОЮЗА <br>ЕМЕЛЬЯНА ГЕРАСИМЕНКО
+        </p>
     </div>
+    <div class="date_time">
+        <br>
+        <script language="javascript" type="text/javascript">
+            var d = new Date();
 
-    {% endblock %}
+            var day=new Array("Воскресенье","Понедельник","Вторник",
+            "Среда","Четверг","Пятница","Суббота");
+
+            var month=new Array("января","февраля","марта","апреля","мая","июня",
+            "июля","августа","сентября","октября","ноября","декабря");
+
+            document.write(d.getDate() + " " + " " + month[d.getMonth()]
+            + " " + d.getFullYear() + " г. " + day[d.getDay()]);
+        </script>
+        <br>
+        <div id="clock"></div>
+    </div>
+</div>
+<div class="main">
+    <a href="schedule.html">
+        <div class="rasp">
+            <img class="card_image" src="static/images/rasp3.png" alt="">
+            <span class="card_text">Расписание</span>
+        </div>
+    </a>
+    <a href="team.html">
+        <div class="rasp">
+            <img class="card_image" src="static/images/teachers.png" alt="">
+            <span class="card_text">Учителя</span>
+        </div>
+    </a>
+    <!-- <a href="teachers.html"> -->
+    <div class="rasp">
+        <img class="card_image" src="static/images/contacts.png" alt="">
+        <span class="card_text">Контакты</span>
+    </div>
+    <!-- </a> -->
+    <div class="rasp">
+        <img class="card_image" src="static/images/time.png" alt="">
+        <span class="card_text">Запись на приём</span>
+
+    </div>
+    <a href="gallery.html">
+        <div class="rasp">
+            <img class="card_image" src="static/images/gallery.png" alt="">
+            <span class="card_text">Галерея</span>
+
+        </div>
+    </a>
+    <a href="itcube.html">
+        <div class="rasp">
+            <img class="card_image" src="static/images/itcube.png" alt="">
+            <span class="card_text">ЦЦОД "IT-Куб"</span>
+        </div>
+    </a>
+    <div class="rasp">
+        <img class="card_image" src="static/images/medicine.png" alt="">
+        <span class="card_text">Медкабинет</span>
+
+    </div>
+    <div class="rasp">
+        <img class="card_image" src="static/images/eat.png" alt="">
+        <span class="card_text">Столовая</span>
+    </div>
+</div>
+
+{% endblock %}
