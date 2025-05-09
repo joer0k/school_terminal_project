@@ -13,23 +13,22 @@
                     <span class="card_text">Расписание</span>
                 </div>
             </a>
-            <a href="team.html">
+            <a href="/teachers">
                 <div class="rasp">
                     <img class="card_image" src="{{ url_for ('static', filename='images/teachers.png') }}" alt="">
                     <span class="card_text">Учителя</span>
                 </div>
             </a>
-            <!-- <a href="teachers.html"> -->
             <div class="rasp">
                 <img class="card_image" src="{{ url_for ('static', filename='images/contacts.png') }}" alt="">
                 <span class="card_text">Контакты</span>
             </div>
-            <!-- </a> -->
-            <div class="rasp">
-                <img class="card_image" src="{{ url_for ('static', filename='images/time.png') }}" alt="">
-                <span class="card_text">Запись на приём</span>
-
-            </div>
+            <a>
+                <div class="rasp">
+                    <img class="card_image" src="{{ url_for ('static', filename='images/time.png') }}" alt="">
+                    <span class="card_text">Запись на приём</span>
+                </div>
+            </a>
             <a href="gallery.html">
                 <div class="rasp">
                     <img class="card_image" src="{{ url_for ('static', filename='images/gallery.png') }}" alt="">
@@ -37,17 +36,19 @@
 
                 </div>
             </a>
-            <a href="itcube.html">
+            <a href="/it_cube">
                 <div class="rasp">
                     <img class="card_image" src="{{ url_for ('static', filename='images/itcube.png') }}" alt="">
                     <span class="card_text">ЦЦОД "IT-Куб"</span>
                 </div>
             </a>
-            <div class="rasp">
-                <img class="card_image" src="{{ url_for ('static', filename='images/medicine.png') }}" alt="">
-                <span class="card_text">Медкабинет</span>
+            <a>
+                <div class="rasp">
+                    <img class="card_image" src="{{ url_for ('static', filename='images/medicine.png') }}" alt="">
+                    <span class="card_text">Медкабинет</span>
 
-            </div>
+                </div>
+            </a>
             <a href="/canteen">
                 <div class="rasp">
                     <img class="card_image" src="{{ url_for ('static', filename='images/eat.png') }}" alt="">
@@ -55,6 +56,5 @@
                 </div>
             </a>
         </div>
-
     </div>
 {% endblock %}

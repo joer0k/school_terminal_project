@@ -10,6 +10,7 @@ users_bp = flask.Blueprint('users_api', __name__, template_folder='templates')
 
 @users_bp.route('/users', methods=['GET'])
 def get_users():
+    '''Возвращает данные о всех пользователях'''
     session = db_session.create_session()
     users = session.query(User).all()
     return flask.jsonify(
@@ -20,6 +21,7 @@ def get_users():
 
 @users_bp.route('/user/<int:id_user>', methods=['POST'])
 def get_user(id_user):
+    '''Возвращает данные об одном пользователе'''
     session = db_session.create_session()
     user = session.query(User).get(id_user)
     if user:
@@ -31,6 +33,7 @@ def get_user(id_user):
 
 @users_bp.route('/user/<int:id_user>', methods=['DELETE'])
 def delete_user(id_user):
+    '''Удаляет пользователя'''
     session = db_session.create_session()
     user = session.get(User, id_user)
     if user:
@@ -44,6 +47,7 @@ def delete_user(id_user):
 
 @users_bp.route('/users', methods=['POST'])
 def create_user():
+    '''Создает аккаунт пользователя'''
     data = request.get_json()
     required_fields = ['surname', 'name', 'age', 'speciality', 'email', 'password', 'repeat_password']
     if not all(field in data for field in required_fields):
@@ -71,6 +75,7 @@ def create_user():
 
 @users_bp.route('/user/<int:id_user>', methods=['PUT'])
 def change_user(id_user):
+    '''Изменяет данные аккаунта пользователя'''
     data = request.get_json()
     required_fields = ['surname', 'name', 'age', 'speciality', 'email']
     session = db_session.create_session()
@@ -90,9 +95,6 @@ def change_user(id_user):
             'id': user.id,
             'surname': user.surname,
             'name': user.name,
-            'second_name': user.second_name,
-            'age': user.age,
-            'speciality': user.speciality,
             'email': user.email,
         }), 200
     except Exception as error:

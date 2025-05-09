@@ -56,13 +56,13 @@ def classes_get():
 
 @schedule_bp.route('/schedule', methods=['POST'])
 def schedule_post():
-    """Добавляет расписание"""
+    """Добавляет и изменяет расписание"""
     session = db_session.create_session()
     data = request.json
     class_id = session.query(Classes).filter(Classes.grade_level == data[-1].split('_')[0],
                                              Classes.class_word == data[-1].split('_')[1]).first().id
     result = []
-    for lessons in data[:-1]:
+    for lessons in data[:-1]:  # в result добавляется запись в том виде, в который удобнее добавить в БД
         for day, lesson in lessons['subjects'].items():
             if lesson:
                 subject_id = session.query(Subjects).filter(
@@ -78,7 +78,7 @@ def schedule_post():
 
     try:
 
-        for item in result:
+        for item in result:  # перебираются записи, уже существующие в БД удаляются и добавляються заново
             schedule = session.query(Schedule).filter(Schedule.class_id == item['class_id'],
                                                       Schedule.classroom_id == item['classroom'],
                                                       Schedule.subject_id == item['subject_id'],
@@ -96,14 +96,11 @@ def schedule_post():
             )
             session.add(result)
             session.commit()
-            # session.add(result)
-            # session.commit()
         return jsonify({
             'success': 'OK'
         })
     except Exception as error:
         session.rollback()
-        print(error)
         raise BadRequest(f'Ошибка: {error}')
     finally:
         session.close()

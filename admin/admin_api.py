@@ -1,16 +1,16 @@
 from flask import render_template, request, redirect, current_app
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask_login import login_user, login_required, logout_user, current_user
 
 import blueprints.canteen_api
 import blueprints.schedule_api
 import blueprints.teachers_api
 from admin import admin_bp
+from admin.forms.login_form import LoginForm
+from admin.forms.register_form import RegisterForm
 from blueprints.schedule_api import schedule_get
 from blueprints.user_api import create_user
 from data import db_session
 from data.models_all.users import User
-from admin.forms.login_form import LoginForm
-from admin.forms.register_form import RegisterForm
 from forms.schedule_form import ScheduleForm
 
 admin_bp.register_blueprint(blueprints.schedule_api.schedule_bp, url_prefix='/api')
@@ -28,6 +28,7 @@ def index():
 
 @admin_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    '''Страница входа в аккаунт'''
     form = LoginForm()
     if form.validate_on_submit():
         session = db_session.create_session()
@@ -48,6 +49,7 @@ def logout():
 
 @admin_bp.route('/register')
 def register():
+    '''Страница регистрации'''
     form = RegisterForm()
     if form.validate_on_submit() and request.method == 'POST':
         user_data = {
@@ -67,18 +69,12 @@ def register():
     return render_template('/admin/register.html', form=form, title='Регистрация', message='', edit=False)
 
 
-def clear_table(form):
-    for day in range(6):
-        for lesson in range(7):
-            form.days.entries[day].lessons.entries[lesson].subject.data = ''
-
-
 @admin_bp.route('/schedule', methods=['GET', 'POST'])
 def schedule():
-    if not current_user.is_authenticated:
+    '''Страница с расписанием, где можно изменить и добавить новое'''
+    if not current_user.is_authenticated:  # проверяет, что пользователь зарегистрирован
         return current_app.login_manager.unauthorized()
     form = ScheduleForm()
-    classes = []
     if request.method == 'POST':
         json = schedule_get(int(form.grade_level.data))
         if json is not None:

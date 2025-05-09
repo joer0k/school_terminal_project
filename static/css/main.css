@@ -64,6 +64,7 @@ div.selects {
     margin-bottom: 30px;
     white-space: nowrap;
 }
+
 #schedule-table {
     table-layout: fixed;
     width: 100%;
@@ -74,6 +75,7 @@ div.selects {
 #schedule-table td {
     border-color: darkblue !important;
     text-align: center;
+    background-color: transparent;
     font-size: 20px;
 }
 
@@ -87,7 +89,7 @@ h2 {
     font-family: "Great Vibes", cursive;
     font-size: 3rem;
     text-align: center;
-    color: #edebf3;
+    color: #2c2c31;
     padding-top: 50px;
 }
 
@@ -166,21 +168,21 @@ h4 {
 }
 
 .header {
-    position: fixed; /* Фиксирует блок на экране */
-    top: 5px; /* Позиционирует блок в самом верху экрана */
-    left: 65px; /* Выравнивает блок по левому краю */
-    width: 100%; /* Занимает всю ширину экрана */
-    z-index: 1000; /* Обеспечивает, чтобы блок был поверх других элементов */
-    display: flex; /* Используется для гибкого размещения элементов внутри блока */
+    position: fixed;
+    top: 5px;
+    left: 65px;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
 }
 
 .logo {
-    margin-left: 20px; /* Отступ слева для логотипа */
+    margin-left: 20px;
 }
 
 .title_text {
-    text-align: center; /* Выравнивает текст по центру */
-    flex-grow: 1; /* Занимает доступное пространство между логотипом и временем */
+    text-align: center;
+    flex-grow: 1;
 }
 
 .date_time {
@@ -212,7 +214,7 @@ footer > p {
 
 }
 
-.footer_href {
+.backButton {
     display: flex;
     text-align: center;
     justify-content: center;
@@ -235,11 +237,11 @@ footer > a {
     color: black !important;
 }
 
-.footer_href:hover {
+.backButton:hover {
     background-image: linear-gradient(to bottom, #ffffff, #11c7f5);
 }
 
-.footer_href:active {
+.backButton:active {
     box-shadow: -4px -5px 4px rgba(27, 60, 195, 0.6);
 }
 
@@ -247,14 +249,12 @@ footer > a {
     flex: 1 1 auto;
     overflow-y: auto;
     height: 650px;
-    height: 650px;
     margin-top: 200px;
     padding-left: 50px;
     padding-right: 50px;
     background-color: rgba(255, 255, 255, 0);
     backdrop-filter: blur(4px);
 
-    /* Стили для Firefox */
     scrollbar-width: 25px;
     scrollbar-color: rgba(0, 0, 0, 0.4) rgba(0, 0, 0, 0.05);
 }
@@ -294,4 +294,132 @@ label.checkbox_label {
     font-family: Arial, sans-serif;
     font-weight: bold;
     cursor: pointer;
+}
+
+.itcube_cards {
+    margin-top: 175px;
+    margin-left: 50px;
+    width: 1700px;
+    height: 577px;
+    display: grid;
+    grid-template: 1fr / 1fr 1fr 1fr 1fr 1fr;
+    justify-self: center;
+    justify-content: end;
+    align-items: center;
+
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 400px;
+    background-color: aliceblue;
+    border-radius: 15px;
+    box-shadow: 4px 5px 4px rgba(27, 60, 195, 0.6);
+}
+
+.cards:hover {
+    background-image: linear-gradient(to bottom, #ffffff, #11c7f5);
+}
+
+.cards:active {
+    box-shadow: -4px -5px 4px rgba(27, 60, 195, 0.6);
+}
+
+
+.card_text {
+    font-size: 32px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 4px 2px 4px rgba(46, 66, 148, 0.6);
+}
+
+a {
+    text-decoration: none !important;
+    color: black !important;
+}
+
+.page_title {
+    width: 1920px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    font-size: 45px;
+    font-weight: bold;
+    color: #2c2c31;
+    text-shadow: 4px 2px 4px rgba(46, 66, 148, 0.6);
+}
+
+.about {
+    display: flex;
+}
+
+.images {
+    margin-top: 200px;
+    justify-content: left;
+    margin-left: 50px;
+    align-self: center;
+    align-items: center;
+}
+
+.scrollable-text {
+    margin-top: 200px;
+    margin-left: 50px;
+    font-size: 24px;
+    width: 40%;
+    height: 30%;
+    overflow-y: auto;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+    align-items: center;
+    height: 720px;
+    width: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+}
+
+.carousel-control-prev {
+    left: 10px;
+}
+
+.carousel-control-next {
+    right: 10px;
+}
+
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    box-shadow: none;
+}
+
+.about_center {
+    width: 500px;
+}
+
+.team_cards {
+    margin-top: 175px;
+    margin-left: 200px;
+    width: 1700px;
+    height: 577px;
+    display: grid;
+    grid-template: 1fr / 1fr 1fr 1fr;
+    justify-self: center;
+    justify-content: end;
+    align-items: center;
+
+}
+
+
+.administration {
+    margin-top: 225px;
+    display: flex;
+    justify-content: space-between;
 }

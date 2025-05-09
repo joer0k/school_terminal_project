@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from flask_login import LoginManager
 
 from admin import admin_bp
-from blueprints.schedule_api import schedule_get, classes_get
+from blueprints.schedule_api import schedule_get
 from data import db_session
 from data.models_all.users import User
 from forms.schedule_form import ScheduleForm
@@ -19,6 +19,7 @@ login_manager.login_view = 'admin.login'
 
 @login_manager.user_loader
 def load_user(user_id):
+    '''Инициализирует пользователя'''
     db_sess = db_session.create_session()
     return db_sess.get(User, user_id)
 
@@ -29,16 +30,11 @@ def index():
     return render_template('buttons_main.html')
 
 
-def clear_table(form):
-    for day in range(6):
-        for lesson in range(7):
-            form.days.entries[day].lessons.entries[lesson].subject.data = ''
-
-
 @app.route('/schedule', methods=['GET', 'POST'])
 def schedule():
+    '''Прогружает страницу с расписанием
+    Метод POST заполняет таблицу с расписанием'''
     form = ScheduleForm()
-    classes = []
     if request.method == 'POST':
         json = schedule_get(int(form.grade_level.data))
         if json is not None:
@@ -59,6 +55,26 @@ def schedule():
         return render_template('schedule.html', form=form,
                                data=[], title='Расписание занятий')
     return render_template('schedule.html', form=form, title='Расписание занятий')
+
+
+@app.route('/it_cube')
+def it_cube():
+    return render_template('it_cube.html', title='Центр цифрового образования детей «IT-куб»')
+
+
+@app.route('/about_itcube')
+def about_itcube():
+    return render_template('about_itcube.html')
+
+
+@app.route('/teachers')
+def show_teachers():
+    return render_template('team.html', title='Наш коллектив')
+
+
+@app.route('/administration')
+def show_administration():
+    return render_template('administration.html', title='Администрация')
 
 
 if __name__ == '__main__':

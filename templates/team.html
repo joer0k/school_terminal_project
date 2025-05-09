@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for ('static', filename='css/main.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for ('static', filename='css/stol.css') }}"/>
+{% endblock %}
+
+{% block content %}
+    <div class="team_cards">
+        <a href="/administration">
+            <div class="cards">
+                <span class="card_text">Администрация</span>
+            </div>
+        </a>
+        <a href="">
+            <div class="cards">
+                <span class="card_text">Начальная школа</span>
+            </div>
+        </a>
+        <a>
+            <div class="cards">
+                <span class="card_text">Средняя школа</span>
+            </div>
+        </a>
+
+    </div>
+{% endblock %}
+{% block extra_js %}
+{% endblock %}

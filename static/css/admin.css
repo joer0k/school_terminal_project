@@ -119,23 +119,18 @@ a.auth-button:hover {
 #schedule-table td {
     border-color: darkblue !important;
     text-align: center;
+    background-color: transparent;
     font-size: 20px;
 }
 
 .page-content {
-    flex: 1 1 auto;
-    overflow-y: auto;
     height: 650px;
-    height: 650px;
-    margin-top: 200px;
+    margin-top: 100px;
     padding-left: 50px;
     padding-right: 50px;
     background-color: rgba(255, 255, 255, 0);
     backdrop-filter: blur(4px);
 
-    /* Стили для Firefox */
-    scrollbar-width: 25px;
-    scrollbar-color: rgba(0, 0, 0, 0.4) rgba(0, 0, 0, 0.05);
 }
 
 label.custom-checkbox {
@@ -153,4 +148,8 @@ label.custom-checkbox input[type='checkbox'] {
 
 button.hidden {
     display: none;
+}
+
+.navbar {
+    background-color: transparent !important;
 }
