@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f1f5f8;
+    font-family: "Zilla Slab", serif;
+}
+
+body {
+    background-image: url(/static/images/background.png) !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-attachment: fixed !important;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+    background-size: cover !important;
+}
+
+img.logo {
+    position: absolute;
+    width: auto;
+    height: auto;
+    display: block;
+    top: 20px;
+    left: 50px
+}
+
+form {
+    font-size: 22px;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+}
+
+form.login_form {
+    position: relative;
+    margin-top: 25%;
+    margin-left: 30%;
+    margin-right: 30%;
+    width: 40%;
+}
+
+form.register_form {
+    position: relative;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+h1.register {
+    position: relative;
+    margin-left: 30%;
+    margin-right: 35%;
+    font-size: 40px;
+}
+
+h1.login {
+    position: relative;
+    text-align: center;
+    font-size: 40px;
+}
+
+form.schedule {
+    position: relative;
+    width: 80%;
+}
+
+table.schedule {
+    width: 300px;
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+th {
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+td {
+    text-align: center;
+    padding: 1px;
+    border: 1px solid #ccc;
+}
+
+nav {
+    font-size: 20px;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+}

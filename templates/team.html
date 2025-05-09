@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/team.css') }}"/>
+{% endblock %}
+
+{% block content %}
+<span class="page_title">НАШ КОЛЛЕКТИВ</span>
+<div class="team">
+    <a href="page/administration">
+        <div class="cards">
+            <span class="card_text">Администрация</span>
+        </div>
+    </a>
+    <a href="page/primary_school">
+        <div class="cards">
+            <span class="card_text">Начальная школа</span>
+        </div>
+    </a>
+    <a href="page/middle_school">
+        <div class="cards">
+            <span class="card_text">Средняя школа</span>
+        </div>
+    </a>
+</div>
+{% endblock %}

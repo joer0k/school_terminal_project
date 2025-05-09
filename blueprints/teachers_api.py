@@ -1,4 +1,5 @@
 import flask
+import requests
 from flask import request, make_response, jsonify
 from werkzeug.security import generate_password_hash
 
@@ -14,7 +15,7 @@ teachers_blueprint = flask.Blueprint(
 
 @teachers_blueprint.route('/teachers')
 def get_teachers():
-    db_session.global_init("db/mars.db")
+    db_session.global_init("db/information.db")
     session = db_session.create_session()
     teachers = session.query(Teachers).all()
     return flask.jsonify({'teachers': [item.to_dict(
@@ -24,10 +25,10 @@ def get_teachers():
 
 @teachers_blueprint.route('/teachers/<int:teacher_id>')
 def get_one_teacher(teacher_id):
-    db_session.global_init("db/mars.db")
+    db_session.global_init("db/information.db")
     session = db_session.create_session()
     teacher = session.query(Teachers).get(teacher_id)
-    return flask.jsonify({'users': [teacher.to_dict(
+    return flask.jsonify({'teacher': [teacher.to_dict(
         only=('id', 'teacher_name', 'post_id', 'way_to_photo', 'additional_information'))]})
 
 
@@ -39,7 +40,7 @@ def create_teacher():
     elif not all(key in teacher for key in
                  ['teacher_name', 'post_id', 'way_to_photo', 'additional_information']):
         return make_response(jsonify({'error': 'Bad request'}), 400)
-    db_session.global_init("db/mars.db")
+    db_session.global_init("db/information.db")
     db_sess = db_session.create_session()
     new_teacher = Teachers(
         teacher_name=teacher['teacher_name'],
@@ -65,7 +66,7 @@ def delete_user(teacher_id):
 
 @teachers_blueprint.route('/teachers/<int:teacher_id>', methods=['PUT'])
 def change_user(teacher_id):
-    db_session.global_init("db/mars.db")
+    db_session.global_init("db/information.db")
     db_sess = db_session.create_session()
     teacher = db_sess.query(Teachers).get(teacher_id)
     different = request.json

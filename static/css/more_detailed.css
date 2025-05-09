@@ -1,0 +1,28 @@
+.card-img-top{
+    width: 250px;
+    height: 400px;
+    margin-left: 190px;
+}
+
+.main_div{
+    width: 1000px;
+    margin-top: 41px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.name{
+    width: 1920px;
+    display: flex;
+    text-align: center;
+    margin-left: 600px;
+    margin-top: 175px;
+    font-size: 45px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 4px 2px 4px rgba(46, 66, 148, 0.6);
+}
+
+p{
+    font-size: 30px;
+}

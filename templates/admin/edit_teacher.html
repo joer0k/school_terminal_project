@@ -1,0 +1,93 @@
+{% extends '/admin/base_admin.html' %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <h1>Редактирование учителя</h1>
+
+    <form action="" method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        {{ form.csrf_token }}
+        <p>
+            {{ form.post.label }}<br>
+            {{ form.post(class="form-select") }}<br>
+            {% for error in form.post.errors %}
+        <p class="alert alert-danger" role="alert">
+            {{ error }}
+        </p>
+        {% endfor %}
+        <p>
+            {{ form.teacher_name.label }}<br>
+            {{ form.teacher_name(class="form-control") }}<br>
+            {% for error in form.teacher_name.errors %}
+        <p class="alert alert-danger" role="alert">
+            {{ error }}
+        </p>
+        {% endfor %}
+        <p>
+            {{ form.photo.label }}<br>
+            {% if teacher.photo %}
+        <div class="mb-2">
+            {% set image_path = teacher.photo[7:] %}
+            <img src="{{ url_for('static', filename=image_path) }}" alt="Текущее изображение" width="150"
+                 class="img-thumbnail">
+            <p class="text-muted">Оставьте пустым, чтобы не менять изображение</p>
+        </div>
+        {% endif %}
+        {{ form.photo(class="form-control", accept="image/*") }}<br>
+        {% for error in form.photo.errors %}
+        <p class="alert alert-danger" role="alert">
+            {{ error }}
+        </p>
+        {% endfor %}
+        <p>
+            {{ form.additional_information.label }}<br>
+            {{ form.additional_information(class="form-control") }}<br>
+            {% for error in form.additional_information.errors %}
+        <p class="alert alert-danger" role="alert">
+            {{ error }}
+        </p>
+        {% endfor %}
+        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        {{message}}
+    </form>
+    <div class="mb-3">
+        <button type="button" class="btn btn-danger" id="deleteTeacherBtn">Удалить</button>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const deleteBtn = document.getElementById("deleteTeacherBtn");
+        if (deleteBtn) {
+            deleteBtn.addEventListener("click", function () {
+                const teacherId = {{ teacher.id }}; // ID учителя из контекста шаблона
+
+                if (!confirm("Вы уверены, что хотите удалить этого учителя?")) {
+                    return;
+                }
+
+                fetch("http://127.0.0.1:5000/api/teachers/" + teacherId, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Ошибка при удалении');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    window.location.href = "{{ url_for('admin_teachers') }}";
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                    alert(error);
+                });
+            });
+        }
+    });
+</script>
+{% endblock %}
