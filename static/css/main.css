@@ -367,18 +367,18 @@ a {
 }
 
 .scrollable-text {
-    margin-top: 200px;
-    margin-left: 50px;
+    margin-top: 225px;
+    margin-left: 100px;
     font-size: 24px;
-    width: 40%;
-    height: 30%;
+    width: 600px;
+    height: 575px;
     overflow-y: auto;
 }
 
 .carousel-control-next,
 .carousel-control-prev {
     align-items: center;
-    height: 720px;
+    height: 500px;
     width: 50px;
     top: 50%;
     transform: translateY(-50%);
@@ -397,7 +397,7 @@ a {
 
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
-    box-shadow: none;
+    background-color: #11c7f5;
 }
 
 .about_center {
@@ -422,4 +422,64 @@ a {
     margin-top: 225px;
     display: flex;
     justify-content: space-between;
+}
+
+
+.programs {
+    margin-top: 260px;
+    margin-left: 200px;
+    width: 1700px;
+    height: 577px;
+    display: grid;
+    grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+    justify-self: center;
+    justify-content: end;
+    align-items: center;
+    row-gap: 60px;
+}
+
+
+.card_program {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 200px;
+    background-color: aliceblue;
+    border-radius: 15px;
+    color: #edebf3;
+    box-shadow: 4px 5px 4px rgba(27, 60, 195, 0.6);
+}
+
+.card_program:hover {
+    background-image: linear-gradient(to bottom, #ffffff, #11c7f5);
+}
+
+.card_program:active {
+    box-shadow: -4px -5px 4px rgba(27, 60, 195, 0.6);
+}
+
+#sis_adm {
+    background-image: url("/static/images/it_cube_programs/sis_adm.png");
+}
+
+#mobile {
+    background-image: url("/static/images/it_cube_programs/mobile.png");
+}
+
+#python {
+    background-image: url("/static/images/it_cube_programs/python.png");
+}
+
+#java {
+    background-image: url("/static/images/it_cube_programs/java.png");
+}
+
+#gigiena {
+    background-image: url("/static/images/it_cube_programs/gigiena.png");
+}
+
+#robots {
+    background-image: url("/static/images/it_cube_programs/robots.png");
 }

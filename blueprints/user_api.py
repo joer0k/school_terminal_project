@@ -15,18 +15,19 @@ def get_users():
     users = session.query(User).all()
     return flask.jsonify(
         {'users': (
-            [item.to_dict(only=('id', 'surname', 'name', 'second_name', 'age', 'speciality', 'email')) for item in
+            [item.to_dict(only=('id', 'surname', 'name', 'email')) for item in
              users])})
 
 
-@users_bp.route('/user/<int:id_user>', methods=['POST'])
+@users_bp.route('/user/<int:id_user>', methods=['GET'])
 def get_user(id_user):
     '''Возвращает данные об одном пользователе'''
+    print(1)
     session = db_session.create_session()
     user = session.query(User).get(id_user)
     if user:
         return flask.jsonify({'users': ([user.to_dict(
-            only=('id', 'surname', 'name', 'age', 'position', 'speciality', 'address', 'email', 'city_from')
+            only=('id', 'surname', 'name', 'email')
         )])})
     return flask.abort(404)
 
@@ -49,7 +50,8 @@ def delete_user(id_user):
 def create_user():
     '''Создает аккаунт пользователя'''
     data = request.get_json()
-    required_fields = ['surname', 'name', 'age', 'speciality', 'email', 'password', 'repeat_password']
+
+    required_fields = ['surname', 'name', 'email', 'password', 'repeat_password']
     if not all(field in data for field in required_fields):
         raise BadRequest('Заполните все необходимые поля')
     session = db_session.create_session()
@@ -66,6 +68,12 @@ def create_user():
         user.set_password(data['password'])
         session.add(user)
         session.commit()
+        return jsonify({
+            'id': user.id,
+            'surname': user.surname,
+            'name': user.name,
+            'email': user.email,
+        }), 200
     except Exception as error:
         session.rollback()
         raise BadRequest(str(error))
@@ -77,7 +85,7 @@ def create_user():
 def change_user(id_user):
     '''Изменяет данные аккаунта пользователя'''
     data = request.get_json()
-    required_fields = ['surname', 'name', 'age', 'speciality', 'email']
+    required_fields = ['id', 'surname', 'name', 'email']
     session = db_session.create_session()
     try:
         user = session.get(User, id_user)

@@ -33,13 +33,13 @@
                 </div>
                 <table class="table table-bordered table-fixed" id="schedule-table">
                     <colgroup>
-                        <col style="width: 150px">
-                        <col style="width: calc((100% - 150px) / 6)">
-                        <col style="width: calc((100% - 150px) / 6)">
-                        <col style="width: calc((100% - 150px) / 6)">
-                        <col style="width: calc((100% - 150px) / 6)">
-                        <col style="width: calc((100% - 150px) / 6)">
-                        <col style="width: calc((100% - 150px) / 6)">
+                        <col style="width: 100px">
+                        <col style="width: calc((100% - 100px) / 6)">
+                        <col style="width: calc((100% - 100px) / 6)">
+                        <col style="width: calc((100% - 100px) / 6)">
+                        <col style="width: calc((100% - 100px) / 6)">
+                        <col style="width: calc((100% - 100px) / 6)">
+                        <col style="width: calc((100% - 100px) / 6)">
                     </colgroup>
 
                     <thead>
@@ -59,7 +59,10 @@
                             <td>{{ lesson_index + 1 }}-й урок</td>
                             {% for day in form.days %}
                                 <td {% if form.is_edit.data== False %}style="pointer-events: none"
-                                    {% else %}style="pointer-events: auto" {% endif %}>{{ day.form.lessons[lesson_index].subject(style='width:200px', data='') }}
+                                    {% else %}style="pointer-events: auto" {% endif %}>
+
+                                    {{ day.form.lessons[lesson_index].subject(style='width:170px;background-color: transparent;border:none') }}
+
                                 </td>
                             {% endfor %}
                         </tr>
@@ -200,9 +203,6 @@
             })
                 .then(response => {
 
-                    if (!response.ok) {
-                        throw Error('Ошибка')
-                    }
                     updateSchedule(selectedGlobal)
                     return response.json()
                 })

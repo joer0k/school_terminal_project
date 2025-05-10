@@ -7,7 +7,7 @@ import blueprints.teachers_api
 from admin import admin_bp
 from admin.forms.login_form import LoginForm
 from admin.forms.register_form import RegisterForm
-from blueprints.schedule_api import schedule_get
+from blueprints.schedule_api import schedule_get, parallel_get
 from blueprints.user_api import create_user
 from data import db_session
 from data.models_all.users import User
@@ -89,7 +89,8 @@ def schedule():
                 if day not in result[class_name].keys():
                     result[class_name][day] = {}
                 result[class_name][day][number] = f'{subject} (каб. {item["classroom"]["room_number"]})'
-            classes = sorted(result.keys())
+            classes = [f'{form.grade_level.data}_{elem}' for elem in
+                       parallel_get(int(form.grade_level.data)).json[form.grade_level.data]]
             return render_template('admin/schedule.html', form=form, data=result, classes=classes,
                                    title='Расписание занятий')
     else:

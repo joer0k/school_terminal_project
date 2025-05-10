@@ -54,7 +54,7 @@
                             <td>{{ lesson_index + 1 }}-й урок</td>
                             {% for day in form.days %}
                                 <td {% if form.is_edit.data== False %}style="pointer-events: none"
-                                    {% else %}style="pointer-events: auto" {% endif %}>{{ day.form.lessons[lesson_index].subject(style='width:200px;') }}
+                                    {% else %}style="pointer-events: auto" {% endif %}>{{ day.form.lessons[lesson_index].subject(style='width:200px;background-color:transparent;border:none') }}
                                 </td>
                             {% endfor %}
                         </tr>

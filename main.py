@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from flask_login import LoginManager
 
 from admin import admin_bp
-from blueprints.schedule_api import schedule_get
+from blueprints.schedule_api import schedule_get, parallel_get
 from data import db_session
 from data.models_all.users import User
 from forms.schedule_form import ScheduleForm
@@ -49,7 +49,8 @@ def schedule():
                 if day not in result[class_name].keys():
                     result[class_name][day] = {}
                 result[class_name][day][number] = f'{subject} (каб. {item["classroom"]["room_number"]})'
-            classes = sorted(result.keys())
+            classes = [f'{form.grade_level.data}_{elem}' for elem in
+                       parallel_get(int(form.grade_level.data)).json[form.grade_level.data]]
             return render_template('schedule.html', form=form, data=result, classes=classes, title='Расписание занятий')
     else:
         return render_template('schedule.html', form=form,
@@ -75,6 +76,12 @@ def show_teachers():
 @app.route('/administration')
 def show_administration():
     return render_template('administration.html', title='Администрация')
+
+
+@app.route('/programs')
+def programs_itcube():
+    return render_template('programs_itcube.html', title='Направления')
+
 
 
 if __name__ == '__main__':

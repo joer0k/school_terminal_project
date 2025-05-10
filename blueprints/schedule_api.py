@@ -3,6 +3,7 @@ from flask import request, jsonify
 from sqlalchemy.util import NoneType
 from werkzeug.exceptions import BadRequest
 
+from blueprints.canteen_api import change_dish
 from data import db_session
 from data.models_all.classes import Classes
 from data.models_all.classrooms import Classrooms
@@ -45,6 +46,20 @@ def classes_get():
     '''Получает список всех классов'''
     session = db_session.create_session()
     classes = session.query(Classes).all()
+    data = {}
+    for item in classes:
+        if item.grade_level not in data.keys():
+            data[item.grade_level] = [item.class_word]
+        else:
+            data[item.grade_level] += [item.class_word]
+    return jsonify(data)
+
+
+@schedule_bp.route('/parallel/<int:number>', methods=['POST'])
+def parallel_get(number):
+    '''получает список классов для одной параллели'''
+    session = db_session.create_session()
+    classes = session.query(Classes).filter(Classes.grade_level == number).all()
     data = {}
     for item in classes:
         if item.grade_level not in data.keys():
