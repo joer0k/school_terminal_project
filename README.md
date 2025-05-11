@@ -1,19 +1,3 @@
-<style>
-.h1 {
-    text-align: center;
-}
-.h3 {
-    font-weight: normal;
-}
-.code-block {
-            background-color: #282c34;
-            color: #ccc;
-            padding: 15px;
-            border-radius: 5px;
-            position: relative;
-        }
-
-</style>
 <h1>Школьный терминал</h1>
 <h2>Описание проекта</h2>
 <h3 style="font-weight: normal">Проект представляет собой сайт-терминал, содержащий всю необходимую инфоромацию о школе: расписание уроков, меню столовой,
@@ -50,10 +34,10 @@ pip install -r school_terminal_project/requirements.txt
 <h2>Авторы проекта</h2>
 <h4>
 <a href='https://github.com/joer0k'>Рябоконь Никита</a>, <a href='https://github.com/Katja19999'>Горбенко
-Екатерина</a>, <a href='https://github.com/AnzhelicaS'>Соболева Анжелика</a>
+Екатерина</a>, <a href='https://github.com/AnzhelicaS'>Соболь Анжелика</a>
 </h4>
 <h3>Структура базы данных</h3>
-![image](/static/images/db_diagram.png)
+<img src='https://github.com/joer0k/school_terminal_project/blob/Nikita/static/images/db_diagram.png'>
 <h2>Описание технологий</h2>
 <h4><a><code>Flask</code></a> - фреймворк для создания веб-приложений на языке программирования Python. В него
 входит <a><code>Jinja2</code></a> - язык шаблонов, использующийся для генерации шаблонов. И <a><code>
