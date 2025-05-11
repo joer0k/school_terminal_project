@@ -1,26 +1,84 @@
-import requests
+# тестирование users_api
+# '''
+# возвращает всех пользователей
+# {'users': [{'email': 'test@test.com', 'id': 1, 'name': 'Test', 'surname': 'Test'}]}
+# '''
+# print(requests.get('http://127.0.0.1:8080/admin/api/users').json())
+#
+# '''
+# возвращает об одном пользователе по айди:
+# {'users': [{'email': 'test@test.com', 'id': 1, 'name': 'Test', 'surname': 'Test'}]}
+# '''
+# print(requests.get('http://127.0.0.1:8080/admin/api/user/1').json())
+#
+# '''
+# создает пользователя. ответ - {'email': 'test2@test.com', 'id': 2, 'name': 'Test2', 'surname': 'Test2'}'''
+# print(requests.post('http://127.0.0.1:8080/admin/api/users',
+#                     json={'email': 'test2@test.com', 'name': 'Test2', 'surname': 'Test2', "password": '12345678',
+#                           'repeat_password': '12345678'}).json())
+#
+# '''изменяет пользователя ответ - {'email': 'test3@test.com', 'id': 3, 'name': 'Test2', 'surname': 'Test2'}'''
+# print(requests.put('http://127.0.0.1:8080/admin/api/user/3', json={'email': 'test3@test.com'}).json())
+#
+# '''удаляет пользователя: ответ - {'status': 'Успешно'}
+# '''
+# print(requests.delete('http://127.0.0.1:8080/admin/api/user/3').json())
 
-'''
-возвращает всех пользователей 
-{'users': [{'email': 'test@test.com', 'id': 1, 'name': 'Test', 'surname': 'Test'}]}
-'''
-print(requests.get('http://127.0.0.1:8080/admin/api/users').json())
-
-'''
-возвращает об одном пользователе по айди:
-{'users': [{'email': 'test@test.com', 'id': 1, 'name': 'Test', 'surname': 'Test'}]}
-'''
-print(requests.get('http://127.0.0.1:8080/admin/api/user/1').json())
-
-'''
-создает пользователя. ответ - {'email': 'test2@test.com', 'id': 2, 'name': 'Test2', 'surname': 'Test2'}'''
-print(requests.post('http://127.0.0.1:8080/admin/api/users',
-                    json={'email': 'test2@test.com', 'name': 'Test2', 'surname': 'Test2', "password": '12345678',
-                          'repeat_password': '12345678'}).json())
-
-'''изменяет пользователя ответ - {'email': 'test3@test.com', 'id': 3, 'name': 'Test2', 'surname': 'Test2'}'''
-print(requests.put('http://127.0.0.1:8080/admin/api/user/3', json={'email': 'test3@test.com'}).json())
-
-'''удаляет пользователя: ответ - {'status': 'Успешно'}
-'''
-print(requests.delete('http://127.0.0.1:8080/admin/api/user/2').json())
+#
+# '''все расписание'''
+# print(requests.get('http://127.0.0.1:8080/admin/api/schedule').json())
+#
+# '''расписание для параллели'''
+# print(requests.get('http://127.0.0.1:8080/admin/api/schedule/grade/11').json())
+#
+# '''список всех классов'''
+# print(requests.get('http://127.0.0.1:8080/admin/api/parallel/11').json())
+#
+# '''добавляет расписание ответ - {'success': 'OK'}'''
+# print(requests.post('http://127.0.0.1:8080/admin/api/schedule', json=[{'lessonNumber': 1,
+#                                                                        'subjects': {'1': 'Математика (каб. 303)',
+#                                                                                     '2': 'Математика (каб. 308)',
+#                                                                                     '3': 'История (каб. 312)',
+#                                                                                     '4': 'Информатика (каб. 304)',
+#                                                                                     '5': 'Физика (каб. 303)',
+#                                                                                     '6': 'Обществознание (каб. 216)'}},
+#                                                                       {'lessonNumber': 2,
+#                                                                        'subjects': {'1': 'Обществознание (каб. 216)',
+#                                                                                     '2': 'История (каб. 312)',
+#                                                                                     '3': 'Русский язык (каб. 212)',
+#                                                                                     '4': 'Информатика (каб. 304)',
+#                                                                                     '5': 'Обществознание (каб. 216)',
+#                                                                                     '6': 'ОБЖ (каб. 106)'}},
+#                                                                       {'lessonNumber': 3,
+#                                                                        'subjects': {'1': 'Русский язык (каб. 212)',
+#                                                                                     '2': 'Русский язык (каб. 212)',
+#                                                                                     '3': 'Физика (каб. 303)',
+#                                                                                     '4': 'Математика (каб. 308)',
+#                                                                                     '5': 'Математика (каб. 308)',
+#                                                                                     '6': 'Обществознание (каб. 216)'}},
+#                                                                       {'lessonNumber': 4,
+#                                                                        'subjects': {'1': 'Информатика (каб. 304)',
+#                                                                                     '2': 'Литература (каб. 212)',
+#                                                                                     '3': 'Математика (каб. 308)',
+#                                                                                     '4': 'Литература (каб. 212)',
+#                                                                                     '5': 'Биология (каб. 201)',
+#                                                                                     '6': 'Физическая культура (каб. с/з)'}},
+#                                                                       {'lessonNumber': 5,
+#                                                                        'subjects': {'1': 'Информатика (каб. 304)',
+#                                                                                     '2': 'Английский язык (каб. 304а)',
+#                                                                                     '3': 'Математика (каб. 308)',
+#                                                                                     '4': 'Английский язык (каб. 304а)',
+#                                                                                     '5': 'Граждановедение (каб. 216)',
+#                                                                                     '6': 'Экономика (каб. 216)'}},
+#                                                                       {'lessonNumber': 6,
+#                                                                        'subjects': {'1': 'Литература (каб. 212)',
+#                                                                                     '2': 'Физическая культура (каб. с/з)',
+#                                                                                     '3': 'География (каб. 310)',
+#                                                                                     '4': 'Математика (каб. 308)',
+#                                                                                     '5': 'Химия (каб. 202)', '6': ''}},
+#                                                                       {'lessonNumber': 7, 'subjects': {'1': '', '2': '',
+#                                                                                                        '3': 'Физическая культура (каб. с/з)',
+#                                                                                                        '4': '',
+#                                                                                                        '5': 'Английский язык (каб. 304а)',
+#                                                                                                        '6': ''}},
+#                                                                       '11_А']).json())
