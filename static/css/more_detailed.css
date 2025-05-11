@@ -8,15 +8,15 @@
     width: 1000px;
     margin-top: 41px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .name{
     width: 1920px;
     display: flex;
     text-align: center;
-    margin-left: 600px;
-    margin-top: 175px;
+    margin-left: 700px;
+    margin-top: 190px;
     font-size: 45px;
     font-weight: bold;
     color: white;

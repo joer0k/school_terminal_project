@@ -80,7 +80,7 @@
                     return response.json();
                 })
                 .then(data => {
-                    window.location.href = "{{ url_for('admin_teachers') }}";
+                    window.location.href = "{{ url_for('admin.admin_teachers') }}";
                 })
                 .catch(error => {
                     console.error('Ошибка:', error);

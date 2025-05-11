@@ -7,12 +7,13 @@
 {% block content %}
 <h3 class="name">{{ json['teacher_name'] }}</h3>
 <div class="main_div">
-    {% if json['way_to_photo'] %}
+    {% if json['way_to_photo'] and json['way_to_photo'] != "static/images/teachers/no_photo.jpg" %}
+    {{ json['way_to_photo'] }}
     <img src="/{{ json['way_to_photo'] }}" class="card-img-top" alt="есть">
     {% else %}
-    <img src="/static/images/teachers/no_photo.jpg" class="card-img-top" alt="нет">
+    <img src="/static/images/teachers/no_photo.jpg" class="card-img-top" style="width:350px;" alt="нет">
     {% endif %}
-    <div style="width: 1200px;">
+    <div>
         <h4>Должность</h4>
         <p>{{ posts['post']['title'] }}</p>
         <hr>
