@@ -38,12 +38,14 @@ form {
 
 form.login_form {
     position: relative;
-    margin-top: 25%;
+    margin-top: 15%;
     margin-left: 30%;
     margin-right: 30%;
     width: 40%;
 }
-
+h1.login {
+    text-align: center;
+}
 form.register_form {
     position: relative;
     width: 40%;

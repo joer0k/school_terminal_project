@@ -1,9 +1,8 @@
-import requests
 from flask import Flask, render_template, request
 from flask_login import LoginManager
 
 from admin import admin_bp
-from blueprints.canteen_api import canteen_bp
+from blueprints.canteen_api import canteen_bp, get_week_menu
 from blueprints.post_api import get_posts, get_one_post
 from blueprints.schedule_api import schedule_get, parallel_get
 from blueprints.teachers_api import get_teachers, get_one_teacher
@@ -110,7 +109,7 @@ def programs_itcube():
 
 @app.route('/canteen')
 def canteen_page():
-    menu = requests.get('http://127.0.0.1:8080/api/menu').json()
+    menu = get_week_menu().json
     menu_data = []
     for item in menu["menu"]:
         menu_data.extend(item['dishes'])
