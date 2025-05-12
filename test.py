@@ -82,3 +82,7 @@
 #                                                                                                        '5': 'Английский язык (каб. 304а)',
 #                                                                                                        '6': ''}},
 #                                                                       '11_А']).json())
+
+import requests
+
+print(requests.get("http://127.0.0.1:8080/api/menu").json())

@@ -3,6 +3,7 @@ from flask import Flask, render_template, request
 from flask_login import LoginManager
 
 from admin import admin_bp
+from blueprints.canteen_api import canteen_bp
 from blueprints.schedule_api import schedule_get, parallel_get
 from data import db_session
 from data.models_all.users import User
@@ -12,6 +13,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
 
 app.register_blueprint(admin_bp, url_prefix='/admin')
+app.register_blueprint(canteen_bp, url_prefix='/api')
 
 login_manager = LoginManager()
 login_manager.init_app(app)
