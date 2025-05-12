@@ -1,0 +1,92 @@
+{% extends '/admin/base_admin.html' %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <h2>Список блюд</h2>
+    <div class="mb-3">
+        <div class="row align-items-center">
+            <label for="categoryFilter" class="col-sm-2 col-form-label">Фильтр по категории:</label>
+            <div class="col-sm-4">
+                <select class="form-select" id="categoryFilter">
+                    <option value="">Все категории</option>
+                    {% for category in categories %}
+                    <option value="{{ category }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+    {% if dishes %}
+    <table class="table table-striped table-hover align-middle" id="dishesTable">
+        <thead class="table-dark">
+        <tr>
+            <th>Название</th>
+            <th>Категория</th>
+            <th>Описание</th>
+            <th>Изображение</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for dish in dishes %}
+        <tr onclick="window.location.href='{{ url_for('admin.edit_dish', dish_id=dish.id) }}';"
+            style="cursor: pointer;">
+            <td>{{ dish.dish_name }}</td>
+            <td>{{ dish.category }}</td>
+            <td>{{ dish.description | striptags | default('Не задано') | truncate(50) }}</td>
+            <td>
+                <img src="/{{ dish.image }}" alt="Фото" width="80" class="img-thumbnail">
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+    <div class="alert alert-info">Нет данных о блюдах.</div>
+    {% endif %}
+    <a href="{{ url_for('admin.add_dish') }}" class="btn btn-success">Добавить</a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.min.js"></script>
+<script src="{{ url_for('static', filename='js/DataTables/moment.min.js') }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let table = new DataTable("#dishesTable", {
+            stateSave: true,
+            pagingType: "simple_numbers",
+            pageLength: 5,
+            lengthMenu: [5, 10, 15, 50],
+            language: {
+                search: "Поиск:",
+                lengthMenu: "Показать _MENU_ записей",
+                info: "Показаны записи с _START_ по _END_ из _TOTAL_",
+                infoEmpty: "Записей не найдено",
+                infoFiltered: "(отфильтровано из _MAX_ записей)",
+                zeroRecords: "Ничего не найдено",
+                paginate: {
+                    first: "Первая",
+                    last: "Последняя",
+                    next: "Вперед",
+                    previous: "Назад"
+                }
+            }
+        });
+
+        const filter = document.getElementById("categoryFilter");
+        if (filter) {
+            filter.addEventListener("change", function () {
+                const selectedCategory = this.value;
+                console.log('Выбранная категория:', selectedCategory);
+
+                // Фильтрация по точному совпадению
+                table.column(1).search(selectedCategory ? '^' + selectedCategory + '$' : '', true, false).draw();
+            });
+        } else {
+            console.error("Элемент #categoryFilter не найден!");
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends '/admin/base_admin.html' %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <h1 class="mb-4">Редактирование меню: {{ form.weekday.data }}</h1>
+
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.csrf_token }}
+        {{ form.weekday(class="form-control", type="hidden") }}
+        <section class="mb-5">
+            <h4>Первые блюда</h4>
+            <div class="row g-2">
+                <div class="col">
+                    {{ form.first_dish_1(class="form-select") }}
+                    {% for error in form.first_dish_1.errors %}
+                    <p class="alert alert-danger" role="alert">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    {{ form.first_dish_2(class="form-select") }}
+                    {% for error in form.first_dish_2.errors %}
+                    <p class="alert alert-danger" role="alert">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    {{ form.first_dish_3(class="form-select") }}
+                    {% for error in form.first_dish_3.errors %}
+                    <p class="alert alert-danger" role="alert">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    {{ form.first_dish_4(class="form-select") }}
+                    {% for error in form.first_dish_4.errors %}
+                    <p class="alert alert-danger" role="alert">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        <section class="mb-5">
+            <h4>Вторые блюда</h4>
+            <div class="row g-2">
+                <div class="col">
+                    {{ form.second_dish_1(class="form-select") }}
+                    {% for error in form.second_dish_1.errors %}
+                    <p class="alert alert-danger" role="alert">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    {{ form.second_dish_2(class="form-select") }}
+                    {% for error in form.second_dish_2.errors %}
+                    <p class="alert alert-danger" role="alert">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    {{ form.second_dish_3(class="form-select") }}
+                    {% for error in form.second_dish_3.errors %}
+                    <p class="alert alert-danger" role="alert">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    {{ form.second_dish_4(class="form-select") }}
+                    {% for error in form.second_dish_4.errors %}
+                    <p class="alert alert-danger" role="alert">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+<section class="mb-5">
+            <h4>Напитки</h4>
+            <div class="row g-2">
+                <div class="col">
+                    {{ form.drinks_1(class="form-select") }}
+                    {% for error in form.drinks_1.errors %}
+                    <p class="alert alert-danger" role="alert">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    {{ form.drinks_2(class="form-select") }}
+                    {% for error in form.drinks_2.errors %}
+                    <p class="alert alert-danger" role="alert">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    {{ form.drinks_3(class="form-select") }}
+                    {% for error in form.drinks_3.errors %}
+                    <p class="alert alert-danger" role="alert">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    {{ form.drinks_4(class="form-select") }}
+                    {% for error in form.drinks_4.errors %}
+                    <p class="alert alert-danger" role="alert">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        {{message}}
+    </form>
+</div>
+{% endblock %}

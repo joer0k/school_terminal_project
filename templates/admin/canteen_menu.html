@@ -1,0 +1,17 @@
+{% extends '/admin/base_admin.html' %}
+
+{% block title %}Меню по дням{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Редактирование меню на день</h2>
+    <h2 class="mb-4">Выберите день недели</h2>
+    <div class="d-flex flex-wrap gap-3">
+        {% for day in weekdays %}
+            <a href="{{ url_for('admin.menu_edit', weekday_id=day.id) }}" class="btn btn-primary btn-lg">
+                {{ day.weekday }}
+            </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
