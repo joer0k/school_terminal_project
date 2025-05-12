@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/administration.css') }}"/>
+{% endblock %}
+
+{% block content %}
+<span class="page_title">{{ title }}</span>
+<div class="administration">
+    {% for i in json %}
+    <div class="card" style="width: 13rem; margin: 15px; border-radius: 15px;">
+        {% if i['way_to_photo'] %}
+        <img src="/{{ i['way_to_photo'] }}" class="card-img-top" alt="есть">
+        {% else %}
+        <img src="/static/images/teachers/no_photo.jpg" class="card-img-top" alt="нет">
+        {% endif %}
+        <div class="card-body">
+            <h5 class="card-title" style="display: flex; text-align: center;">{{ posts[i['post_id'] - 1]['title'] }}</h5>
+            <p class="card-text">{{ i['teacher_name'] }}</p>
+            <br>
+            <a href="more_detailed/{{ i['id'] }}" class="btn btn-primary" style="display: flex; text-align: center; justify-content: center;">Подробнее</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

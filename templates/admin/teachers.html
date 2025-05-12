@@ -1,0 +1,51 @@
+{% extends '/admin/base_admin.html' %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+    <h2>Список учителей</h2>
+<!--   МОЖНО ТАКЖЕ ВСТАВИТЬ СЮДА ФИЛЬТР ПО КАТЕГОРИЯМ, ПОИСК И КОЛИЧЕСТВО ЗАПИСЕЙ В ТАБЛИЦЕ-->
+<!--    <div class="mb-3">-->
+<!--        <div class="row align-items-center">-->
+<!--            <label for="categoryFilter" class="col-sm-2 col-form-label">Фильтр по категории:</label>-->
+<!--            <div class="col-sm-4">-->
+<!--                <select class="form-select" id="categoryFilter">-->
+<!--                    <option value="">Все категории</option>-->
+<!--                    {% for post in posts %}-->
+<!--                    <option value="{{ post['title'] }}">{{ post['title'] }}</option>-->
+<!--                    {% endfor %}-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+    {% if teachers %}
+    <table class="table table-striped table-hover align-middle" id="dishesTable">
+        <thead class="table-dark">
+        <tr>
+            <th>ФИО</th>
+            <th>Должность</th>
+            <th>Дополнительная информация</th>
+            <th>Фото</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for teacher in teachers %}
+        <tr onclick="window.location.href='edit_teacher/{{ teacher.id }}';"
+            style="cursor: pointer;">
+            <td>{{ teacher.teacher_name }}</td>
+            <td>{{ posts[teacher.post_id - 1]['title'] }}</td>
+            <td>{{ teacher.additional_information | striptags | default('Не задано') | truncate(50) }}</td>
+            <td>
+                <img src="/{{ teacher.way_to_photo }}" alt="Фото" width="80" class="img-thumbnail">
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+    <div class="alert alert-info">Нет данных об учителе.</div>
+    {% endif %}
+    <a href="add_teacher" class="btn btn-success">Добавить</a>
+</div>
+{% endblock %}
