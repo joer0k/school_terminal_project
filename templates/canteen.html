@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/style.css') }}" />
+{% endblock %}
+
+
+{% block content %}
+<div class="btn-container" style=" position: sticky; top: 290px; ">
+        <button class="btn btn-outline-dark btn-item" data-id="ПОНЕДЕЛЬНИК">ПОНЕДЕЛЬНИК</button>
+        <button class="btn btn-outline-dark btn-item" data-id="ВТОРНИК">ВТОРНИК</button>
+        <button class="btn btn-outline-dark btn-item" data-id="СРЕДА">СРЕДА</button>
+        <button class="btn btn-outline-dark btn-item" data-id="ЧЕТВЕРГ">ЧЕТВЕРГ</button>
+        <button class="btn btn-outline-dark btn-item" data-id="ПЯТНИЦА">ПЯТНИЦА</button>
+        <button class="btn btn-outline-dark btn-item" data-id="СУББОТА">СУББОТА</button>
+    </div>
+<div class="page-content" style="height: 610px;">
+    <!-- menu items -->
+    <div class="section-center row">
+
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+    const menuData = {{ menu | tojson }};
+</script>
+<script src="{{ url_for ('static', filename='js/canteen.js') }}"></script>
+{% endblock %}

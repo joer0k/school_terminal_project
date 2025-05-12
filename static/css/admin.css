@@ -1,3 +1,15 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f1f5f8;
+    font-family: "Zilla Slab", serif;
+
+}
+
 body {
     background-image: url(/static/images/background.png) !important;
     background-repeat: no-repeat !important;
@@ -55,7 +67,7 @@ h1.login {
 
 form.schedule {
     position: relative;
-    width: 80%;
+    width: 90%;
 }
 
 table.schedule {
@@ -80,4 +92,64 @@ nav {
     font-size: 20px;
     font-weight: 600;
     font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+}
+
+a.auth-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+a.auth-button:hover {
+    background-color: #0056b3;
+}
+
+#schedule-table {
+    table-layout: fixed;
+    width: 100%;
+    border: 2px solid darkblue !important;
+}
+
+#schedule-table th,
+#schedule-table td {
+    border-color: darkblue !important;
+    text-align: center;
+    background-color: transparent;
+    font-size: 20px;
+}
+
+.page-content {
+    height: 650px;
+    margin-top: 100px;
+    padding-left: 50px;
+    padding-right: 50px;
+    background-color: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(4px);
+
+}
+
+label.custom-checkbox {
+    gap: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 100px;
+}
+
+label.custom-checkbox input[type='checkbox'] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+button.hidden {
+    display: none;
+}
+
+.navbar {
+    background-color: transparent !important;
 }

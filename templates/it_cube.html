@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for ('static', filename='css/main.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for ('static', filename='css/stol.css') }}"/>
+{% endblock %}
+
+{% block content %}
+    <div class="itcube_cards">
+        <a href="/about_itcube">
+            <div class="cards">
+                <span class="card_text">О центре</span>
+            </div>
+        </a>
+        <a href="/programs">
+            <div class="cards">
+                <span class="card_text">Направления</span>
+            </div>
+        </a>
+        <a>
+            <div class="cards">
+                <span class="card_text">Педагоги</span>
+            </div>
+        </a>
+        <a>
+            <div class="cards">
+                <span class="card_text">Расписание</span>
+            </div>
+        </a>
+        <a>
+            <div class="cards">
+                <span class="card_text">Контакты</span>
+            </div>
+        </a>
+    </div>
+{% endblock %}
+{% block extra_js %}
+{% endblock %}

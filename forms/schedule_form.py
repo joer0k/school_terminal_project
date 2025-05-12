@@ -19,7 +19,7 @@ class DayScheduleForm(FlaskForm):
 
 class ScheduleForm(FlaskForm):
     """Форма всего расписания"""
-    grade_level = SelectField('Класс', choices=[(str(i), str(i)) for i in range(1, 12)], default='',
+    grade_level = SelectField('Класс', choices=[(str(i), str(i)) for i in range(5, 12)], default='',
                               validators=[DataRequired()])
     class_word = SelectField('Буква класса', choices=[(i, i) for i in ('АБВГД')], default='',
                              validators=[DataRequired()])
