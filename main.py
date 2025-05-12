@@ -4,7 +4,9 @@ from flask_login import LoginManager
 
 from admin import admin_bp
 from blueprints.canteen_api import canteen_bp
+from blueprints.post_api import get_posts, get_one_post
 from blueprints.schedule_api import schedule_get, parallel_get
+from blueprints.teachers_api import get_teachers, get_one_teacher
 from data import db_session
 from data.models_all.users import User
 from forms.schedule_form import ScheduleForm
@@ -71,9 +73,29 @@ def about_itcube():
     return render_template('about_itcube.html')
 
 
-@app.route('/teachers')
-def show_teachers():
-    return render_template('team.html', title='Наш коллектив')
+@app.route('/team')
+def teachers_page():
+    return render_template('team.html')
+
+
+@app.route('/page/<name>')
+def administration(name):
+    teachers = get_teachers().json['teachers']
+    posts = get_posts().json['posts']
+    title_dict = {'administration': 'Администрация гимназии 87', 'middle_school': 'Учителя средней школы гимназии 87',
+                  'primary_school': 'Учителя начальной школы гимназии 87'}
+    list_right_teachers = []
+    for i in teachers:
+        if posts[i['post_id'] - 1]['post'] == name:
+            list_right_teachers.append(i)
+    return render_template('page_with_teachers.html', json=list_right_teachers, posts=posts, title=title_dict[name])
+
+
+@app.route('/page/more_detailed/<int:teacher_id>')
+def more_detailed(teacher_id):
+    teacher = get_one_teacher(teacher_id).json['teacher'][0]
+    posts = get_one_post(int(teacher['post_id'])).json
+    return render_template('more_detailed.html', json=teacher, posts=posts)
 
 
 @app.route('/administration')

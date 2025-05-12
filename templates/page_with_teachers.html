@@ -1,11 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'index.html' %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for ('static', filename='css/administration.css') }}"/>
+  <link rel="stylesheet" href="{{ url_for ('static', filename='css/main.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for ('static', filename='css/stol.css') }}"/>
 {% endblock %}
 
 {% block content %}
-<span class="page_title">{{ title }}</span>
 <div class="administration">
     {% for i in json %}
     <div class="card" style="width: 13rem; margin: 15px; border-radius: 15px;">

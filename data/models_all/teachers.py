@@ -10,7 +10,7 @@ class Teachers(SqlAlchemyBase, SerializerMixin):
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     teacher_name = sqlalchemy.Column(sqlalchemy.String, nullable=False)
-    way_to_photo = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    way_to_photo = sqlalchemy.Column(sqlalchemy.String, nullable=False, unique=False)
     additional_information = sqlalchemy.Column(sqlalchemy.Text)
     post_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey('posts.id'))
     posts = orm.relationship("Posts")

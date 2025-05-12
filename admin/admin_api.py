@@ -7,16 +7,22 @@ from flask_login import login_user, login_required, logout_user, current_user
 import blueprints.canteen_api
 import blueprints.schedule_api
 import blueprints.teachers_api
+import blueprints.post_api
 from admin import admin_bp
 from admin.forms.add_dish_form import AddDishForm
+from admin.forms.add_teacher_form import AddTeacherForm
 from admin.forms.login_form import LoginForm
 from admin.forms.menu_edit_form import MenuEditForm
 from admin.forms.register_form import RegisterForm
+from blueprints.post_api import get_posts
 from blueprints.schedule_api import schedule_get, parallel_get
+from blueprints.teachers_api import get_teachers
 from blueprints.user_api import create_user
+
 from data import db_session
 from data.models_all.categories import Categories
 from data.models_all.dishes import dish_to_weekday, Dishes
+from data.models_all.teachers import Posts, Teachers
 from data.models_all.users import User
 from data.models_all.weekday import Weekday
 from forms.schedule_form import ScheduleForm
@@ -24,7 +30,8 @@ from forms.schedule_form import ScheduleForm
 admin_bp.register_blueprint(blueprints.schedule_api.schedule_bp, url_prefix='/api')
 admin_bp.register_blueprint(blueprints.user_api.users_bp, url_prefix='/api')
 admin_bp.register_blueprint(blueprints.canteen_api.canteen_bp, url_prefix='/api')
-admin_bp.register_blueprint(blueprints.teachers_api.teachers_bp, url_prefix='/api')
+admin_bp.register_blueprint(blueprints.teachers_api.teachers_blueprint, url_prefix='/api')
+admin_bp.register_blueprint(blueprints.post_api.posts_blueprint, url_prefix='/api')
 
 
 @login_required
@@ -219,3 +226,71 @@ def menu_edit(weekday_id):
                     session.commit()
                 return redirect("/admin/dishes")
     return render_template("admin/menu_edit.html", form=menu_form)
+
+
+@admin_bp.route('/add_teacher', methods=["GET", "POST"])
+def add_teacher():
+    if not current_user.is_authenticated:
+        return current_app.login_manager.unauthorized()
+    teacher_form = AddTeacherForm()
+    if teacher_form.validate_on_submit():
+        image_file = teacher_form.photo.data
+        if image_file:
+            filename = image_file.filename
+            image_path = os.path.join('static/images/teachers/', filename)
+            image_file.save(image_path)
+        else:
+            image_path = os.path.join('static/images/', "no_photo.jpg")
+        session = db_session.create_session()
+        post_id = session.query(Posts).filter_by(title=teacher_form.post.data).first().id
+        teacher = Teachers(
+            post_id=post_id,
+            teacher_name=teacher_form.teacher_name.data,
+            way_to_photo=image_path,
+            additional_information=teacher_form.additional_information.data if teacher_form.additional_information.data else "Не указано"
+        )
+        session.add(teacher)
+        session.commit()
+        return redirect("/admin/teachers")
+    return render_template("admin/add_teacher.html", form=teacher_form)
+
+
+@admin_bp.route('/teachers')
+def admin_teachers():
+    if not current_user.is_authenticated:
+        return current_app.login_manager.unauthorized()
+    teachers = get_teachers().json['teachers']
+    posts = get_posts().json['posts']
+    return render_template('admin/teachers.html', teachers=teachers, posts=posts)
+
+
+@admin_bp.route('/edit_teacher/<int:teacher_id>', methods=["GET", "POST"])
+def admin_edit_teachers(teacher_id):
+    if not current_user.is_authenticated:
+        return current_app.login_manager.unauthorized()
+    teacher_form = AddTeacherForm()
+    session = db_session.create_session()
+    teacher = session.query(Teachers).get(teacher_id)
+    if request.method == "GET":
+        teacher_form = AddTeacherForm(obj=teacher)
+        post = session.query(Posts).get(teacher.post_id)
+        teacher_form.post.data = post.title
+    elif request.method == "POST":
+        if teacher_form.validate_on_submit():
+            image_file = teacher_form.photo.data
+            if image_file:
+                filename = image_file.filename
+                image_path = os.path.join('static/images/teachers/', filename)
+                image_file.save(image_path)
+            elif not teacher.way_to_photo:
+                image_path = os.path.join('static/images/', "default.jpg")
+            else:
+                image_path = teacher.way_to_photo
+            post_id = session.query(Posts).filter_by(title=teacher_form.post.data).first().id
+            teacher.post_id = post_id
+            teacher.teacher_name = teacher_form.teacher_name.data
+            teacher.way_to_photo = image_path
+            teacher.additional_information = teacher_form.additional_information.data if teacher_form.additional_information.data else "Не указано"
+            session.commit()
+            return redirect(url_for("admin.admin_teachers"))
+    return render_template("/admin/edit_teacher.html", form=teacher_form, teacher=teacher)
