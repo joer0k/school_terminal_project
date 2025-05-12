@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for ('static', filename='css/main.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for ('static', filename='css/stol.css') }}"/>
+{% endblock %}
+
+{% block content %}
+    <div class="programs">
+        <a href="/system_admin">
+            <div class="card_program" id="sis_adm">
+                <span class="card_text">Системное администрирование</span>
+            </div>
+        </a>
+        <a href="/mobile">
+            <div class="card_program" id="mobile">
+                <span class="card_text">Мобильная разработка</span>
+            </div>
+        </a>
+        <a href="/python">
+            <div class="card_program" id='python'>
+                <span class="card_text">Программирование на Python</span>
+            </div>
+        </a>
+        <a href="/java">
+            <div class="card_program" id="java">
+                <span class="card_text">Основа программирования на Java</span>
+            </div>
+        </a>
+        <a href="/kibergigiena">
+            <div class="card_program" id="gigiena">
+                <span class="card_text">Кибергигиена и работа с большими данными</span>
+            </div>
+        </a>
+        <a href="/robots">
+            <div class="card_program" id="robots">
+                <span class="card_text">Программирование роботов</span>
+            </div>
+        </a>
+    </div>
+{% endblock %}
+{% block extra_js %}
+{% endblock %}

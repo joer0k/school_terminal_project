@@ -1,0 +1,16 @@
+{% extends '/admin/base_admin.html' %}
+{% block extra_css %}
+{% endblock %}
+{% block content %}
+    <div class="container" style="text-align: center;margin-top: 150px">
+        {% if not current_user.is_authenticated %}
+            <h2>
+                Добро пожаловать в админ панель системы школьного терминала
+            </h2>
+            <h2>
+                Пожалуйста авторизируйтесь!
+            </h2>
+            <a href="/admin/login" class="auth-button">Авторизоваться</a>
+        {% endif %}
+    </div>
+{% endblock %}

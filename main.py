@@ -1,126 +1,89 @@
-from flask import Flask, render_template, request, redirect
-from flask_login import LoginManager, login_user, login_required, logout_user
+from flask import Flask, render_template, request
+from flask_login import LoginManager
 
-from flask import Flask, render_template
+from admin import admin_bp
+from blueprints.schedule_api import schedule_get, parallel_get
 from data import db_session
-from data.models_all.weekday import Weekday
-# В файле weekday.py
-from data.db_session import SqlAlchemyBase
+from data.models_all.users import User
+from forms.schedule_form import ScheduleForm
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+app.config['SECRET_KEY'] = 'secret_key'
+
+app.register_blueprint(admin_bp, url_prefix='/admin')
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'admin.login'
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    '''Инициализирует пользователя'''
+    db_sess = db_session.create_session()
+    return db_sess.get(User, user_id)
+
 
 @app.route('/')
 def index():
-    session = db_session.create_session()
-    weekday = session.query(Weekday).all()
-    return render_template("canteen.html", weekday=weekday)
+    """Прогружает главную страницу"""
+    return render_template('buttons_main.html')
 
 
-def main():
-    db_session.global_init('db/information.db')
-    app.run()
+@app.route('/schedule', methods=['GET', 'POST'])
+def schedule():
+    '''Прогружает страницу с расписанием
+    Метод POST заполняет таблицу с расписанием'''
+    form = ScheduleForm()
+    if request.method == 'POST':
+        json = schedule_get(int(form.grade_level.data))
+        if json is not None:
+            result = {}
+            for item in json.json['schedule']:
+                class_name = f'{item["class_name"]["grade_level"]}_{item["class_name"]["class_word"]}'
+                if class_name not in result.keys():
+                    result[class_name] = {}
+                day = item['weekday']['weekday']
+                number = item['number_lesson']
+                subject = item['subject']['subject_name']
+                if day not in result[class_name].keys():
+                    result[class_name][day] = {}
+                result[class_name][day][number] = f'{subject} (каб. {item["classroom"]["room_number"]})'
+            classes = [f'{form.grade_level.data}_{elem}' for elem in
+                       parallel_get(int(form.grade_level.data)).json[form.grade_level.data]]
+            return render_template('schedule.html', form=form, data=result, classes=classes, title='Расписание занятий')
+    else:
+        return render_template('schedule.html', form=form,
+                               data=[], title='Расписание занятий')
+    return render_template('schedule.html', form=form, title='Расписание занятий')
+
+
+@app.route('/it_cube')
+def it_cube():
+    return render_template('it_cube.html', title='Центр цифрового образования детей «IT-куб»')
+
+
+@app.route('/about_itcube')
+def about_itcube():
+    return render_template('about_itcube.html')
+
+
+@app.route('/teachers')
+def show_teachers():
+    return render_template('team.html', title='Наш коллектив')
+
+
+@app.route('/administration')
+def show_administration():
+    return render_template('administration.html', title='Администрация')
+
+
+@app.route('/programs')
+def programs_itcube():
+    return render_template('programs_itcube.html', title='Направления')
+
+
 
 if __name__ == '__main__':
-    main()
-# import blueprints.canteen_api
-# # import blueprints.schedule_api
-# import blueprints.teachers_api
-# # from blueprints.schedule_api import schedule_get
-# # from blueprints.user_api import create_user
-# from data import db_session
-# # from data.models_all.users import User
-# # from forms.login_form import LoginForm
-# from forms.register_form import RegisterForm
-# from forms.schedule_form import ScheduleForm
-#
-# app = Flask(__name__)
-# app.config['SECRET_KEY'] = 'secret_key'
-# # app.register_blueprint(blueprints.schedule_api.schedule_bp, url_prefix='/api')
-# # app.register_blueprint(blueprints.user_api.users_bp, url_prefix='/api')
-# app.register_blueprint(blueprints.canteen_api.canteen_bp, url_prefix='/api')
-# app.register_blueprint(blueprints.teachers_api.teachers_bp, url_prefix='/api')
-# login_manager = LoginManager()
-# login_manager.init_app(app)
-#
-#
-# @login_manager.user_loader
-# def load_user(user_id):
-#     db_sess = db_session.create_session()
-#     return db_sess.get(User, user_id)
-#
-#
-# @app.route('/')
-# @app.route('/index')
-# def index():
-#     """Прогружает главную страницу"""
-#     return render_template('base.html')
-#
-#
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-#     form = LoginForm()
-#     if form.validate_on_submit():
-#         session = db_session.create_session()
-#         user = session.query(User).filter(User.email == form.email.data).first()
-#         if user and user.check_password(form.password.data):
-#             login_user(user, remember=form.remember_me.data)
-#             return redirect('/')
-#         return render_template('login.html', form=form, title='Войти', message='Неверный логин или пароль')
-#     return render_template('login.html', form=form, title='Войти', message='')
-#
-#
-# @app.route('/logout')
-# @login_required
-# def logout():
-#     logout_user()
-#     return redirect('/')
-#
-#
-# @app.route('/register')
-# def register():
-#     form = RegisterForm()
-#     if form.validate_on_submit() and request.method == 'POST':
-#         user_data = {
-#             'surname': form.surname.data,
-#             'name': form.name.data,
-#             'second_name': form.second_name.data,
-#             'email': form.email.data,
-#             'speciality': form.speciality.data,
-#             'age': form.date_bd.data
-#         }
-#         response = create_user(user_data).json
-#         if response.status_code == 201:
-#             return redirect('/login')
-#         error_data = response.json()
-#         return render_template('register.html', form=form, title='Регистрация', message=error_data.get('error'),
-#                                edit=False)
-#     return render_template('register.html', form=form, title='Регистрация', message='', edit=False)
-#
-#
-# def clear_table(form):
-#     for day in range(6):
-#         for lesson in range(7):
-#             form.days.entries[day].lessons.entries[lesson].subject.data = ''
-#
-#
-# # @app.route('/schedule', methods=['GET', 'POST'])
-# # def schedule():
-# #     form = ScheduleForm(is_editing=False)
-# #     if request.method == 'POST':
-# #         json = schedule_get(f'{request.form["grade_level"]}_{request.form["class_word"]}')
-# #         if json:
-# #             for elem in json.json['schedule']:
-# #                 day = int(elem['day_of_week'])
-# #                 lesson_index = elem['number_lesson']
-# #                 subject_name = elem['subject']['subject_name']
-# #
-# #                 form.days.entries[day].lessons.entries[lesson_index].subject.data = subject_name
-# #             return render_template('schedule.html', form=form)
-# #         else:
-# #             clear_table(form)
-# #             return render_template('schedule.html', message='Для этого класса расписания не найдено', form=form)
-# #     return render_template('schedule.html', form=form)
-
-
-
+    db_session.global_init('db/information.db')
+    app.run(port=8080, host='127.0.0.1', debug=True)

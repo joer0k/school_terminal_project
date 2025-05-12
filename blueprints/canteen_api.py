@@ -3,7 +3,6 @@ from flask import request, make_response, jsonify
 
 from data import db_session
 from data.models_all.dishes import Dishes
-from data.models_all.menu import MenuTable
 from data.models_all.weekday import Weekday
 
 canteen_bp = flask.Blueprint(
@@ -22,13 +21,13 @@ def get_weekday():
         only=('id', 'weekday')) for item in weekday]})
 
 
-@canteen_bp.route('/canteen/<int:weekday_id>')
-def get_menu(weekday_id):
-    db_session.global_init("db/information.db")
-    session = db_session.create_session()
-    canteen = session.query(MenuTable).get(weekday_id)
-    return flask.jsonify({'menu': [canteen.to_dict(
-        only='id_dish')]})
+# @canteen_bp.route('/canteen/<int:weekday_id>')
+# def get_menu(weekday_id):
+#     db_session.global_init("db/information.db")
+#     session = db_session.create_session()
+#     canteen = session.query(MenuTable).get(weekday_id)
+#     return flask.jsonify({'menu': [canteen.to_dict(
+#         only='id_dish')]})
 
 
 @canteen_bp.route('/dishes', methods=['POST'])

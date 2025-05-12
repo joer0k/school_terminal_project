@@ -2,7 +2,6 @@ from data.models_all import categories
 from data.models_all import classes
 from data.models_all import classrooms
 from data.models_all import dishes
-from data.models_all import menu
 from data.models_all import schedule
 from data.models_all import subjects
 from data.models_all import teacher_to_subject

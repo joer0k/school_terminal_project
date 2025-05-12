@@ -1,0 +1,155 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f1f5f8;
+    font-family: "Zilla Slab", serif;
+    overflow: hidden;
+}
+
+body {
+    background-image: url(/static/images/background.png) !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-attachment: fixed !important;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+    background-size: cover !important;
+}
+
+img.logo {
+    position: absolute;
+    width: auto;
+    height: auto;
+    display: block;
+    top: 20px;
+    left: 50px
+}
+
+form {
+    font-size: 22px;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+}
+
+form.login_form {
+    position: relative;
+    margin-top: 25%;
+    margin-left: 30%;
+    margin-right: 30%;
+    width: 40%;
+}
+
+form.register_form {
+    position: relative;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+h1.register {
+    position: relative;
+    margin-left: 30%;
+    margin-right: 35%;
+    font-size: 40px;
+}
+
+h1.login {
+    position: relative;
+    margin-left: 35%;
+    margin-right: 35%;
+    font-size: 40px;
+}
+
+form.schedule {
+    position: relative;
+    width: 90%;
+}
+
+table.schedule {
+    width: 300px;
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+th {
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+td {
+    text-align: center;
+    padding: 1px;
+    border: 1px solid #ccc;
+}
+
+nav {
+    font-size: 20px;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+}
+
+a.auth-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+a.auth-button:hover {
+    background-color: #0056b3;
+}
+
+#schedule-table {
+    table-layout: fixed;
+    width: 100%;
+    border: 2px solid darkblue !important;
+}
+
+#schedule-table th,
+#schedule-table td {
+    border-color: darkblue !important;
+    text-align: center;
+    background-color: transparent;
+    font-size: 20px;
+}
+
+.page-content {
+    height: 650px;
+    margin-top: 100px;
+    padding-left: 50px;
+    padding-right: 50px;
+    background-color: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(4px);
+
+}
+
+label.custom-checkbox {
+    gap: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 100px;
+}
+
+label.custom-checkbox input[type='checkbox'] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+button.hidden {
+    display: none;
+}
+
+.navbar {
+    background-color: transparent !important;
+}
