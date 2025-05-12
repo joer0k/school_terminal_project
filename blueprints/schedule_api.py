@@ -87,14 +87,13 @@ def schedule_post():
                 subject_id = session.query(Subjects).filter(
                     Subjects.subject_name == lesson.split('(')[0].strip()).first()
                 if not subject_id:
-                    raise BadRequest('Ошибка в названии предмета')
+                    return BadRequest('Ошибка в названии предмета')
                 classroom_id = session.query(Classrooms).filter(
                     Classrooms.room_number == lesson.split()[-1].strip(')')).first()
                 if not classroom_id:
-                    raise BadRequest('Ошибка в номере кабинета')
+                    return BadRequest('Ошибка в номере кабинета')
                 result += [{'subject_id': subject_id.id, 'classroom': classroom_id.id, 'class_id': class_id,
                             'day_of_week': day, 'number_lesson': lessons['lessonNumber']}]
-
     try:
 
         for item in result:  # перебираются записи, уже существующие в БД удаляются и добавляються заново

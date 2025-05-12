@@ -17,7 +17,6 @@ canteen_bp = flask.Blueprint(
 def get_week_menu():
     session = db_session.create_session()
     weekdays = session.query(Weekday).all()
-    print(weekdays)
     result = [
         {
             "id": weekday.id,
@@ -91,7 +90,7 @@ def get_dishes_by_id(dish_id):
                 "image": dish.image,
                 "description": dish.description
             }
-          ]
+        ]
         return jsonify({"dishes": result})
     return jsonify({"dishes": "Не найдено!"})
 
@@ -117,7 +116,6 @@ def get_dishes_by_category(category_id):
 @canteen_bp.route('/dishes/<int:dish_id>', methods=['DELETE'])
 def delete_dish(dish_id):
     db_sess = db_session.create_session()
-    print(dish_id)
     dish = db_sess.query(Dishes).get(dish_id)
 
     if not dish:
