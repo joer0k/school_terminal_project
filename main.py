@@ -1,3 +1,4 @@
+import requests
 from flask import Flask, render_template, request
 from flask_login import LoginManager
 
@@ -82,6 +83,14 @@ def show_administration():
 def programs_itcube():
     return render_template('programs_itcube.html', title='Направления')
 
+
+@app.route('/canteen')
+def canteen_page():
+    menu = requests.get('http://127.0.0.1:8080/api/menu').json()
+    menu_data = []
+    for item in menu["menu"]:
+        menu_data.extend(item['dishes'])
+    return render_template('canteen.html', title="Меню школьной столовой", menu=menu_data)
 
 
 if __name__ == '__main__':

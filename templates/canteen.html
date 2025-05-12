@@ -1,43 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кнопки</title>
-    <style>
-        .button-row {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 20px;
-        }
-        .button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
 
-    <h1 style="text-align: center;">Выберите день недели</h1>
-    <div class="button-container">
-        <div class="button-row">
-            {% for day in weekday[:3] %}
-                <button class="button" style="width: 200px; height: 50px;">{{ day.weekday }}</button>
-            {% endfor %}
-        </div>
-        <div class="button-row">
-            {% for day in weekday[3:] %}
-                <button class="button" style="width: 200px; height: 50px;">{{ day.weekday }}</button>
-            {% endfor %}
-        </div>
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/style.css') }}" />
+{% endblock %}
+
+
+{% block content %}
+<div class="btn-container" style=" position: sticky; top: 290px; ">
+        <button class="btn btn-outline-dark btn-item" data-id="ПОНЕДЕЛЬНИК">ПОНЕДЕЛЬНИК</button>
+        <button class="btn btn-outline-dark btn-item" data-id="ВТОРНИК">ВТОРНИК</button>
+        <button class="btn btn-outline-dark btn-item" data-id="СРЕДА">СРЕДА</button>
+        <button class="btn btn-outline-dark btn-item" data-id="ЧЕТВЕРГ">ЧЕТВЕРГ</button>
+        <button class="btn btn-outline-dark btn-item" data-id="ПЯТНИЦА">ПЯТНИЦА</button>
+        <button class="btn btn-outline-dark btn-item" data-id="СУББОТА">СУББОТА</button>
     </div>
-</body>
-</html>
+<div class="page-content" style="height: 610px;">
+    <!-- menu items -->
+    <div class="section-center row">
+
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+    const menuData = {{ menu | tojson }};
+</script>
+<script src="{{ url_for ('static', filename='js/canteen.js') }}"></script>
+{% endblock %}
