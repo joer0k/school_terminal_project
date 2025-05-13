@@ -24,4 +24,5 @@ class Dishes(SqlAlchemyBase, SerializerMixin):
     description = sqlalchemy.Column(sqlalchemy.Text, default='Не указано')
 
     categories = orm.relationship("Categories", back_populates="dish")
-    weekdays = orm.relationship("data.models_all.weekday.Weekday", secondary='dish_to_weekday', back_populates="menu_items")
+    weekdays = orm.relationship("data.models_all.weekday.Weekday", secondary='dish_to_weekday',
+                                back_populates="menu_items")

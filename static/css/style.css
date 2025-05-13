@@ -7,7 +7,7 @@ body {
     -moz-background-size: cover !important;
     -o-background-size: cover !important;
     background-size: cover !important;
-    }
+}
 
 
 .logo {
@@ -23,7 +23,7 @@ body {
     text-shadow: 4px 2px 4px rgba(80, 111, 236, 0.6) !important;
 }
 
-.title_text{
+.title_text {
     display: flex !important;
     width: 1400px !important;
     margin-top: -10px !important;
@@ -39,7 +39,7 @@ body {
 
 }
 
-p{
+p {
     text-align: center !important;
     line-height: 120% !important;
     margin: 0px !important;
@@ -47,7 +47,7 @@ p{
     margin-top: 30px !important;
 }
 
-.main{
+.main {
     margin-top: 100px;
     margin-left: 55px;
     width: auto;
@@ -59,7 +59,7 @@ p{
     align-items: center;
 }
 
-.rasp{
+.rasp {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -68,21 +68,21 @@ p{
     height: 250px;
     background-color: aliceblue;
     border-radius: 35px;
-    box-shadow: 4px 5px 4px rgba(27,60,195,0.6);
+    box-shadow: 4px 5px 4px rgba(27, 60, 195, 0.6);
     -ms-user-select: none;
     user-select: none;
     margin: 20px;
 }
 
-.rasp:hover{
+.rasp:hover {
     background-image: linear-gradient(to bottom, #ffffff, #11c7f5);
 }
 
-.rasp:active{
-    box-shadow: -4px -5px 4px rgba(27,60,195,0.6);
+.rasp:active {
+    box-shadow: -4px -5px 4px rgba(27, 60, 195, 0.6);
 }
 
-.card_text{
+.card_text {
     font-size: 42px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
@@ -90,14 +90,14 @@ p{
     text-shadow: 4px 2px 4px rgba(46, 66, 148, 0.6);
 }
 
-a{
+a {
     text-decoration: none !important;
     color: black !important;
 }
 
 
-.card_image{
-    width: 120px; 
+.card_image {
+    width: 120px;
     margin: 20px;
 }
 

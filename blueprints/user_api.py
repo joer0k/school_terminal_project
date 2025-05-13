@@ -22,7 +22,6 @@ def get_users():
 @users_bp.route('/user/<int:id_user>', methods=['GET'])
 def get_user(id_user):
     '''Возвращает данные об одном пользователе'''
-    print(1)
     session = db_session.create_session()
     user = session.query(User).get(id_user)
     if user:

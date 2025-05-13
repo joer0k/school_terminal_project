@@ -485,7 +485,7 @@ a {
 }
 
 
-.team{
+.team {
     margin-top: 200px;
     margin-left: 55px;
     width: 1700px;
@@ -498,7 +498,7 @@ a {
     margin-left: 180px;
 }
 
-.cards{
+.cards {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -507,19 +507,19 @@ a {
     height: 450px;
     background-color: aliceblue;
     border-radius: 15px;
-    box-shadow: 4px 5px 4px rgba(27,60,195,0.6);
+    box-shadow: 4px 5px 4px rgba(27, 60, 195, 0.6);
 }
 
-.cards:hover{
+.cards:hover {
     background-image: linear-gradient(to bottom, #ffffff, #11c7f5);
 }
 
-.cards:active{
-    box-shadow: -4px -5px 4px rgba(27,60,195,0.6);
+.cards:active {
+    box-shadow: -4px -5px 4px rgba(27, 60, 195, 0.6);
 }
 
 
-.card_text{
+.card_text {
     font-size: 32px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
@@ -528,8 +528,7 @@ a {
 }
 
 
-
-.administration{
+.administration {
     margin-left: 400px;
     width: 1000px;
     margin-top: 220px;
@@ -537,6 +536,6 @@ a {
     justify-content: center;
 }
 
-.card_image{
+.card_image {
     margin-top: 115px;
 }

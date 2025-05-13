@@ -24,11 +24,12 @@ class RegisterForm(FlaskForm):
     def __init__(self, *args, is_editing=False, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
         self.is_editing = is_editing
-        session = db_session.create_session()
-        self.speciality.choices = [elem.title for elem in session.query(Posts).all()]
-        if not self.is_editing:
-            self.password.validators = [DataRequired(), Length(min=8, max=20)]
-            self.password_repeat.validators = [DataRequired(), Length(min=8, max=20)]
-            self.submit.label.text = 'Зарегистрироваться'
-        else:
-            self.submit.label.text = 'Подтвердить изменения'
+        with db_session.create_session() as session:
+
+            self.speciality.choices = [elem.title for elem in session.query(Posts).all()]
+            if not self.is_editing:
+                self.password.validators = [DataRequired(), Length(min=8, max=20)]
+                self.password_repeat.validators = [DataRequired(), Length(min=8, max=20)]
+                self.submit.label.text = 'Зарегистрироваться'
+            else:
+                self.submit.label.text = 'Подтвердить изменения'

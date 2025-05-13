@@ -1,17 +1,17 @@
-.card-img-top{
+.card-img-top {
     width: 250px;
     height: 400px;
     margin-left: 190px;
 }
 
-.main_div{
+.main_div {
     width: 1000px;
     margin-top: 41px;
     display: flex;
     justify-content: space-evenly;
 }
 
-.name{
+.name {
     width: 1920px;
     display: flex;
     text-align: center;
@@ -23,6 +23,6 @@
     text-shadow: 4px 2px 4px rgba(46, 66, 148, 0.6);
 }
 
-p{
+p {
     font-size: 30px;
 }

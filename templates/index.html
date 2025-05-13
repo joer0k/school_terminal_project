@@ -72,7 +72,10 @@
 {% block content %}
 {% endblock %}
 <footer>
+    {% if is_button %}
+    {% else %}
     <button class="backButton" id="backButton">Назад</button>
+    {% endif %}
     <p>Разработано выпускниками ЦДО "IT-Куб" на базе МОУ гимназии № 87</p>
 </footer>
 <script>

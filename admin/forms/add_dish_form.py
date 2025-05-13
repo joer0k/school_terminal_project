@@ -20,6 +20,6 @@ class AddDishForm(FlaskForm):
 
     def __init__(self, *args, is_editing=False, **kwargs):
         super(AddDishForm, self).__init__(*args, **kwargs)
-        session = db_session.create_session()
-        self.categories.choices = [elem.dish_category for elem in session.query(Categories).all()]
+        with db_session.create_session() as session:
+            self.categories.choices = [elem.dish_category for elem in session.query(Categories).all()]
 

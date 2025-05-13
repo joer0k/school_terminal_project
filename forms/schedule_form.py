@@ -4,7 +4,7 @@ from wtforms.fields.choices import SelectField
 from wtforms.fields.form import FormField
 from wtforms.fields.list import FieldList
 from wtforms.fields.simple import StringField
-from wtforms.validators import DataRequired, Optional
+from wtforms.validators import DataRequired
 
 
 class LessonForm(FlaskForm):
@@ -27,4 +27,3 @@ class ScheduleForm(FlaskForm):
     days = FieldList(FormField(DayScheduleForm), min_entries=6, max_entries=6)  # 6 дней недели
 
     submit = SubmitField('Показать')
-

@@ -24,14 +24,14 @@ login_manager.login_view = 'admin.login'
 @login_manager.user_loader
 def load_user(user_id):
     '''Инициализирует пользователя'''
-    db_sess = db_session.create_session()
-    return db_sess.get(User, user_id)
+    with db_session.create_session() as session:
+        return session.get(User, user_id)
 
 
 @app.route('/')
 def index():
     """Прогружает главную страницу"""
-    return render_template('buttons_main.html')
+    return render_template('buttons_main.html', is_button=True)
 
 
 @app.route('/schedule', methods=['GET', 'POST'])

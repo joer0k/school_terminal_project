@@ -5,7 +5,6 @@ from wtforms.fields.simple import StringField, SubmitField, TextAreaField, FileF
 from wtforms.validators import DataRequired
 
 from data import db_session
-from data.models_all.categories import Categories
 from data.models_all.teachers import Posts
 
 
@@ -21,6 +20,5 @@ class AddTeacherForm(FlaskForm):
 
     def __init__(self, *args, is_editing=False, **kwargs):
         super(AddTeacherForm, self).__init__(*args, **kwargs)
-        session = db_session.create_session()
-        self.post.choices = [elem.title for elem in session.query(Posts).all()]
-
+        with db_session.create_session() as session:
+            self.post.choices = [elem.title for elem in session.query(Posts).all()]
